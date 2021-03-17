@@ -1,0 +1,103 @@
+//////////////////////////////////// 
+
+Warehouse Management System 
+
+//////////////////////////////////// 
+
+ 
+
+Welcome to the Warehouse Management System (WMS). 
+
+Please enter your username and password: 
+
+Username: 
+
+Password: 
+
+ 
+
+---ADMIN--- 
+
+Please select one of the following menus: 
+
+Enter Username & Password 
+
+Change Username & Password 
+
+Username: 
+
+Password: 
+
+Add a Guest User 
+
+Name of User:  
+
+Username: 
+
+Password: 
+
+Remove a User 
+
+Name of User:  
+
+Add an Item to the Warehouse 
+
+Type:  
+
+ID: Auto generate? 
+
+Name: 
+
+Creator name: Auto Generate?  
+
+QTY: 
+
+Location: 
+
+Price: 
+
+Delete an Item from the Warehouse 
+
+ID: 
+
+Editing an Item from Warehouse 
+
+Enter ID: Brings you back to add an item? 
+
+View Listing of Borrowing Requests 
+
+Opens list with assigned serial numbers 
+
+Select Serial Number: 
+
+Approve  
+
+Reject 
+
+Accepting or Rejecting a Borrowing Request 
+
+Thank you for using the WMS. 
+
+Please enter 1 to quit. 
+
+ 
+
+----USER---- 
+
+Search through WMS 
+
+ID: 
+
+Name: 
+
+Producer: 
+
+Save Favorite Items 
+
+Request Borrowing/Buying Some Items for a Specific Time 
+
+View History of Borrowed Items 
+
+Thank you for using the WMS. 
+
+Please enter 1 to quit.
