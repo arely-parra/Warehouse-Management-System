@@ -1,1 +1,21 @@
-vvv
+WHAT IS TO BE ACHIEVED BY MY CODING:
+
+Each user should be able to: 
+
+a.  Search through WMS based on all items details, such as ID, Name, and producer.  
+
+b.  Save a list of favorite items 
+
+c.  Request for barrowing/buying some items for a specific time. For example, barrowing item A for 3 weeks. 
+
+d.  View the history of barrowed items3. 
+
+AS WELL AS:
+WMS should provide an exit function and thanks the user for using this software. 
+e.  It shows a warning if: 
+
+  i.   The admin user tries to add a new item to the library with an existing ID. 
+
+  ii.   If a guess user try to barrow more than 3 items.  
+
+  iii.   A user search request return null items. 
