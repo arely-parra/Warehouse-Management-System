@@ -1,1 +1,30 @@
-vvv
+//* Project 4: Warehouse Management System
+//* Group Name: Can You C My Screen?
+//* Group Members: Arely J. Parra López, Jarred Crystal, Alexander Vita, Kamyrn Hammond, and Sophie Ross
+//* Course: CSCI 1110-01 | Introduction to C Programming
+//* Author: Arely J. Parra López
+//* Date: Monday, April 5th, 2021
+
+//* My Objectives for the Users:
+	//* Search through WMS-based on all item details (i.e., ID, Name, Producer)
+	//* Save a list of favorite items
+	//* Request for borrowing/buying some items for a specific time (i.e., borrowing item A for 3 weeks)
+	//* View the history of borrowed items
+	//* Provide an Exit function and thanks to the user for using this software
+	//* Show warnings if:
+		//* Admin tries to add a new item to the librry with a pre-exisiting ID
+		//* Guest User tries to borrow more than 3 items
+		//* A User's search request returns null items
+
+
+//* Code for WMS Search	
+#include <stdio.h>
+void main()
+
+
+//* Code for Exiting & Thanking User/Admin
+
+
+
+//* Code for Warning User
+	
