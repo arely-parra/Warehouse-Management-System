@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+int main (void)
+{
+    puts("\n\n\t------------------------\n");
+    puts("\tWarehouse Management System\n");
+    puts("\t------------------------\n");
+    
+    int ID, Password;
+    printf("To enter Warehouse Management System, pleaser enter your ID: ");
+    scanf("%d", &ID);
+    printf("To enter Warehouse Management System, pleaser enter your Password: ");
+    scanf("%d", &Password);
+    
+    switch (ID){
+        case 10:
+        if (Password == 1234){
+        printf("Welcome");
+        }else{ 
+            printf("Incorrect password");
+        }
+        break;
+        default:
+        printf("You have entered an Incorrect password\n");
+        }
+        
+        
+    switch (Password){
+        case 10:
+        if (ID == 4321){
+        printf("Welcome");
+        }else{ 
+            printf("Incorrect ID");
+        }
+        break;
+        default:
+        printf("You have entered an Incorrect ID\n");
+        }
+        return 0;
+    }
+    
