@@ -3,5 +3,5 @@ Project #4
 
 {
 
-Printf("Welcome to the Warehouse Management System\n");
+Printf(//////////////"Welcome to the Warehouse Management System\n"/////////////);
 
