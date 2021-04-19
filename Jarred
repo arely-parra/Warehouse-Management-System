@@ -34,16 +34,19 @@ void main(void){
 // menu
 	int adminMenu(void){
 		puts("\n\n\t***********************\n\t\tMenu\n\t***********************\n\n");
-		printf("\t[1] View the recorded passwords\n");
-		printf("\t[2] Search a password\n");
-		printf("\t[3] Add a password\n");
-		printf("\t[4] Edit a password\n");
-		printf("\t[5] Delet a password\n");
-		printf("\t[6] Exit\n");
+		printf("\t[1] The admin User and Password to log in\n");
+		printf("\t[2] Change the admin user and/or password\n");
+		printf("\t[3] Add Guest User to WMS\n");
+		printf("\t[4] Remove user from WMS\n");
+		printf("\t[5] Add item to warehouse\n");
+		printf("\t[6] Delete item from warehouse\n");
+		printf("\t[7] View list of barrowing requests\n");
+		printf("\t[8] Accept or Deny barrowing request\n");
+		printf("\t[9] Exit\n");
 		printf("\n\tPlease select one of the above options to proceed: ");
 		int input;
 		scanf("%d",&input);
-		if(input>=1 && input <=6){
+		if(input>=1 && input <=9){
 			return input;
 		}else{
 			system("@cls||clear");
@@ -54,16 +57,15 @@ void main(void){
 	// menu
 	int guestMenu(void){
 		puts("\n\n\t***********************\n\t\tMenu\n\t***********************\n\n");
-		printf("\t[1] View the recorded passwords\n");
-		printf("\t[2] Search a password\n");
-		printf("\t[3] Add a password\n");
-		printf("\t[4] Edit a password\n");
-		printf("\t[5] Delet a password\n");
-		printf("\t[6] Exit\n");
+		printf("\t[1] Search WMS for items in warehouse\n");
+		printf("\t[2] Save list of favorite items\n");
+		printf("\t[3] Request barrowing/buying items\n");
+		printf("\t[4] View barrowing history\n");
+		printf("\t[5] Exit\n");
 		printf("\n\tPlease select one of the above options to proceed: ");
 		int input;
 		scanf("%d",&input);
-		if(input>=1 && input <=6){
+		if(input>=1 && input <=5){
 			return input;
 		}else{
 			system("@cls||clear");
