@@ -4,15 +4,67 @@ Project #4
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-
+void main(void){
+	system("@cls||clear");
+	// title
+    puts("\n\n\t****************************************************\n\t\tWelcome to Warehouse Managment System\n\t****************************************************\n\n");
+	int task;
+	task=mainMenu();
+		
+	switch (task){
+		case 1:
+			view();
+			break;
+		case 2:
+			search();
+			break;
+		case 3:
+			add();
+			break;
+		case 4:
+			edit();
+			break;
+		case 5:
+			delet();
+			break;
+		case 6:
+			exit(1);
+		}
+		
+		//repeatation request
+		printf("\n\tWould you like to do another action?(y/n) ");
+		char quit;
+		getchar();
+		scanf("%c",&quit);
+		if(quit=='y'){
+			main();
+		}else if (quit=='n'){
+			exit(1);
+		}
+}
 {
-
-Printf(//////////////"Welcome to the Warehouse Management System\n"/////////////);
-
-
-
+// menu
+	int adminMenu(void){
+		puts("\n\n\t***********************\n\t\tMenu\n\t***********************\n\n");
+		printf("\t[1] View the recorded passwords\n");
+		printf("\t[2] Search a password\n");
+		printf("\t[3] Add a password\n");
+		printf("\t[4] Edit a password\n");
+		printf("\t[5] Delet a password\n");
+		printf("\t[6] Exit\n");
+		printf("\n\tPlease select one of the above options to proceed: ");
+		int input;
+		scanf("%d",&input);
+		if(input>=1 && input <=6){
+			return input;
+		}else{
+			system("@cls||clear");
+			printf("\t<<<Your input is not available on the menue, please try again>>>\n");
+			mainMenu();
+		}
+		{
 	// menu
-	int mainMenu(void){
+	int guestMenu(void){
 		puts("\n\n\t***********************\n\t\tMenu\n\t***********************\n\n");
 		printf("\t[1] View the recorded passwords\n");
 		printf("\t[2] Search a password\n");
