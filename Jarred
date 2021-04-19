@@ -30,18 +30,6 @@ void main(void){
 		case 6:
 			exit(1);
 		}
-		
-		//repeatation request
-		printf("\n\tWould you like to do another action?(y/n) ");
-		char quit;
-		getchar();
-		scanf("%c",&quit);
-		if(quit=='y'){
-			main();
-		}else if (quit=='n'){
-			exit(1);
-		}
-}
 {
 // menu
 	int adminMenu(void){
