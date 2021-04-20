@@ -355,23 +355,3 @@ void main(void){
 	} 
 }	
 		
-/*
- Menu Options
-	int guestMenu(void){
-		puts("\n\n\t***********************\n\t\tGuest Menu\n\t***********************\n\n");
-		printf("\t[1] Search WMS for Items in Warehouse\n");
-		printf("\t[2] Save List of Favorite Items\n");
-		printf("\t[3] Request Borrowing/Buying Items\n");
-		printf("\t[4] View Item's Borrowing History\n");
-		printf("\t[5] Exit\n");
-		printf("\n\tPlease select one of the above options to proceed: ");
-		int input;
-		scanf("%d",&input);
-		if(input>=1 && input <=5){
-			return input;
-		}else{
-			system("@cls||clear");
-			printf("\t<<<Your input is not available on the Guest Menu, please try again>>>\n");
-			guestMenu();
-		}
-*/
