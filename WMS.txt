@@ -1,8 +1,0 @@
-Food
-123
-Apple
-Dole
-5
-Market
-$2.50
-----------
