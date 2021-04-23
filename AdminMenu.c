@@ -315,106 +315,511 @@ void delete(void){
 			}
 	}
 
-/*
 // Case 6 (Alex Vita)
-void  (){
+void addItems (void){
+	struct entity {
+		
+		char type[100];
+		char ID[100];
+		char store[100];
+		char pick[100];
+		char creator [100];
+		char qty [100];
+		char place [100];
+		char price [100];
+	};
+	struct entity new;
+	printf("Please enter the following information\n");
+	
+			//Enter Item Name
+		printf("Enter A 4 Character ID: ");
+		scanf("%c",&new.ID); //clears buffer
+		scanf("%[^\n]",&new.ID);
+				
+		
+			//Enter product type 
+		printf("Item Type: ");
+		scanf("%c",&new.type);
+		scanf("%[^\n]",&new.type);
+		
+				//Enter Pickout time
+		printf("Enter Stored Time (M/D/Y H:M): ");
+		scanf("%c",&new.store); //clears buffer
+		scanf("%[^\n]",&new.store);
+		
+			//Enter Pickout time
+		printf("Enter Pickout Time (M/D/Y H:M): ");
+		scanf("%c",&new.pick); //clears buffer
+		scanf("%[^\n]",&new.pick);
+				
+			//Enter Comments 
+		printf("Enter Your Name: ");
+		scanf("%c",&new.creator); //clears buffer
+		scanf("%[^\n]",&new.creator);
+			
+			//Enter Quatity
+		printf("Enter Quatity: ");
+		scanf("%c",&new.qty);
+		scanf("%[^\n]",&new.qty);
+			
+			//Enter Item Location
+		printf("Enter Storage Location: ");
+		scanf("%c",&new.place); //clears buffer
+		scanf("%[^\n]",&new.place);
+			
+			//Price
+		printf("Enter Price: ");
+		scanf("%c",&new.price);
+		scanf("%[^\n]",&new.price);
+		
+	
 
+	
+		FILE *invfile;
+			invfile = fopen("inventory.txt","a");
+				if (invfile == NULL)
+				{
+					printf("invalid file");
+					exit(1);
+				}
+				fprintf(invfile,"%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n--------\n"
+				,&new.ID,&new.type,&new.store,&new.pick,&new.creator,&new.qty,&new.place,&new.price);
+				fclose(invfile);
+				
+				puts("Request Succesful");
+				printf("Would you like to add another item (y/n):");
+				char quit;
+				getchar();
+				scanf("%c",&quit);
+				if(quit =='y'){
+					addItems();
+				}
 }
 
 // Case 7 (Alex Vita)
-void  (){
-
-}
+int* searchItems(void){
+		
+		static int output[2];
+		printf("What is the Name?");
+		char key[100];
+		char input[100];
+		scanf("%s",&key);
+		strcpy(input,key);
+		strcat(key, "\n");
+		
+		FILE *invfile;
+			invfile = fopen("inventory.txt","r");
+				if (invfile == NULL)
+				{
+					printf("invalid file");
+					exit(1);
+				}
+				
+				char mystring[100];
+				int line = 0 ;
+				int find = 0;
+				int fieldNumber = 0 ;
+				while(fgets(mystring, sizeof(mystring),invfile) != NULL){
+					line++;  fieldNumber++;
+					if(strcmp(mystring, key) == 0 && fieldNumber ==1) {
+						printf("\n found %s at line %d\n", input, line);
+						find = 1;
+						output[0] = find;
+						output[1] = line;
+						break;
+					}
+					if(fieldNumber == 8)
+					{
+					fieldNumber=0;
+					}
+				}
+				
+				fclose(invfile);
+				if(find ==0 ){
+					printf("\ndoes not exist 1\n");
+					return output;
+				}
+				
+			invfile = fopen("inventory.txt","r");
+			if (invfile == NULL)
+			{
+				printf("\n ERROR \n");
+				exit(1);
+				
+			}
+			
+			int pline = 0 ;
+			while(fgets(mystring, sizeof(mystring),invfile) != NULL){
+				pline++;
+				if (pline == (line+1)){
+					printf("Stored: %s", mystring);
+				}
+				else if (pline == (line+2)){
+					printf("Picked: %s", mystring);
+					
+				}
+				else if (pline == (line+3)){
+					printf("ID: %s", mystring);
+					
+				}
+				else if (pline == (line+4)){
+					printf("Creator: %s", mystring);
+					
+				}
+				else if (pline == (line+5)){
+					printf("QTY: %s", mystring);
+					
+				}
+				else if (pline == (line+6)){
+					printf("Location: %s", mystring);
+					
+				}
+				else if (pline == (line+7)){
+					printf("Price: %s", mystring);
+					break;
+				};
+			}
+			
+			fclose(invfile);
+			return output;
+			
+	};	
 
 // Case 8 (Alex Vita)
-void  (){
-
+void editItems (void){
+	int* place = search();
+	int find = place[0];
+	int line = place [1];
+	if(find == 0){
+		printf("\n Does not exist\n");
+	}
+	else
+	{
+		char name[20], type[20];
+		printf("Enter the name:");
+		scanf("%s", &name);
+		printf("Enter the type:");
+		scanf("%s", &type);
+		
+			FILE *invfile;
+			invfile = fopen("inventory.txt","r");
+			
+			FILE *tempfile;
+			tempfile = fopen("temp.txt","w");
+			
+				if (invfile == NULL || tempfile == NULL)
+				{
+					printf("invalid file");
+					exit(1);
+				}
+				
+				char mystring[100];
+				int pline = 0;
+				
+				while (fgets(mystring, sizeof(mystring),invfile) != NULL){
+				pline++;
+				if(pline != (line+1) && pline != (line+2))
+				{
+					fprintf(tempfile,"%s",mystring);
+				}
+				else if(pline == (line+1))
+				{
+					fprintf(tempfile,"%s\n",name);	
+				}
+				else if(pline == (line+2))
+				{
+					fprintf(tempfile,"%s\n",type);
+				}
+				}
+				
+				fclose(invfile);
+				fclose(tempfile);
+				
+				remove("inventory.txt");
+				rename("temp.txt","inventory.txt");
+				
+				puts("\tThe request was successful");
+				printf("\tWould you like to adjust another item(y/n): ");
+				char quit;
+				getchar();
+				scanf("%c",&quit);
+				if(quit=='y'){
+					editItems();
+				}
+	}
 }
 
-// Case 9 (Sophie Ross)
-void viewBorrowing(void){
-	int loopNum = 0;
+// Case 9 (Alex Vita)
+void deleteItems(void){
+		
+		int* place=search();
+		
+		int find=place[0];
+		int line=place[1];
+		if(find == 0){
+			printf("does not exist");
+		}else{
+				
+				FILE *invfile= fopen("inventory.txt","r");
+				FILE *tempfile= fopen("temp.txt","w");
+				if(invfile == NULL || tempfile == NULL )
+				{
+				  printf("An error is happend!!!");
+				  printf("Please reset everything and try again!!!");
+				  exit(1);             
+				}
+				
+				// paste all content of the original file to the temporary file except the ones that we want to remove
+				char myString[100];
+				int pline=0;
+				while(fgets(myString, sizeof(myString),invfile) != NULL){
+					pline++;
+					if(pline != line && pline != (line+1) && pline != (line+2) && pline != (line+3)
+						&& pline != (line+4) && pline != (line+5)&& pline != (line+6) && pline != (line+7)
+					    && pline != (line+8)){
+						fprintf(tempfile,"%s",myString);
+						//printf("\t%s has been deleted\n",myString);
+					}
+				}
+				fclose(invfile);
+				fclose(tempfile);
+				
+				// remove the original file and rename the temorary file
+				remove("inventory.txt");
+				rename("temp.txt","inventory.txt");
+				
+				// doauble check with the user
+				puts("\tThe request was successful");
+				printf("\tWould you like to remove another item(y/n): ");
+				char quit;
+				getchar();
+				scanf("%c",&quit);
+				if(quit=='y'){
+					deleteItems();
+				}
+			}
+	}	
 
-    while (loopNum <= 99) { //while loop to list all barroing requests
-    	if (barrowingList[loopNum][0] != NUll) { 
+// Case 10 (Alex Vita)
+void viewItems(void){
+		system("@cls||clear");
+		
+		FILE *invfile;
+		invfile = fopen("inventory.txt","r"); 
+		if(invfile == NULL)
+		{
+		  printf("An error is happend!!!");
+		  printf("Please reset everything and try again!!!");
+		  exit(1);             
+		}
+		
+		struct entity {
+		char type[100];
+		char ID[100];
+		char store[100];
+		char pick[100];
+		char creator [100];
+		char qty [100];
+		char place [100];
+		char price [100];
+	};
+		struct entity new;
+		//TABLE TITLES
+		printf("\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 Inventory \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n");
+		printf("\t=======================================================================\n");
+		printf("\tType\t\tStored\t\tPicked\t\t\tID\tCreator\t\tQTY\tLocation\tPrice\t \n");
+		printf("\t=======================================================================\n");
+		char myString[100];
+		int pline=0;
+		while(fgets(myString, sizeof(myString),invfile) != NULL){
+			pline++;
+			if(pline == 1){
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.type,myString);
+			}else if(pline == 2){
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.store,myString);
+			}else if(pline == 3){
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.pick,myString);
+			}else if(pline == 4){
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.ID,myString);
+			}else if(pline == 5){
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.creator,myString);
+			}else if(pline == 6){
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.qty,myString);
+			}else if(pline == 7){
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.place,myString);
+			}else if(pline == 8){
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.price,myString);
+			}else if(pline == 9){
+				printf("\t%-10s\t\t%-5s\t\t%-5s\t%-5s\t%-5s\t\t%-5s\t%-5s\t%-5s\n",
+				&new.type,&new.store,&new.pick,&new.ID,&new.creator,&new.qty,&new.place,&new.price);
+				pline=0;
+			}
+		}
+		//close the file
+		fclose(invfile);
+	}
+	
+/*// Case 11 (Sophie Ross)
+void viewBorrowing(void){
+	char str_temp[26];
+	char borrowingList[500][7][26];
+
+	FILE *borrowinglistf;
+	borrowinglistf = fopen("borrowinglist.txt","r"); //opens borrowinglist file as readable
+	if (borrowinglistf == NULL) { //prints error and quits program if file contains no data/dopesnt exiist
+		printf("File has no data");
+		exit(1);
+	} 
+
+	int rowNum = 0;
+	int linePointer = 0;
+
+	while (TRUE) {
+		str_temp = fgetc(borrowinglistf);
+		if (feof(borrowinglistf)) {
+			break;
+		}
+		
+		borrowingList[rowNum][linePointer] = str_temp;
+
+		if (linePoiner == 7) {
+			++rowNum;
+			linePoiner = 0;
+		} else {
+			++linePointer;
+		}
+	}
+
+	rowNum = 0;
+
+    while (rowNum <= 250) { //while loop to list all barroing requests
+    	if (barrowingList[rowNum][0] != NUll) { 
     	    printf("List row:");
-			printf(loopNum);
+			printf(rowNum);
 			printf(" ");
 
     	    printf("Name:");
-    	    printf(barrowingList[loopNum][0]);
+    	    printf(borrowingList[rowNum][0]);
     	    printf(" ");
 
      		printf("Item type:");
-    	    printf(barrowingList[loopNum][1]);
+    	    printf(borrowingList[rowNum][1]);
     	    printf(" ");
 
 	        printf("Stored:");
-	        printf(barrowingList[loopNum][2]);
+	        printf(borrowingList[rowNum][2]);
 	        printf(" ");
 
 	        printf("Pick up:");
-	        printf(barrowingList[loopNum][3]);
+	        printf(borrowingList[rowNum][3]);
 	        printf(" ");
 
 	        printf("Comment:");
- 	 	  	printf(barrowingList[loopNum][4]);
+ 	 	  	printf(borrowingList[rowNum][4]);
 	    	printf(" ");
 
        		printf("Quality:");
-    		printf(barrowingList[loopNum][5]);
+    		printf(borrowingList[rowNum][5]);
         	printf(" ");
 
     		printf("Location:");
-        	printf(barrowingList[loopNum][6]);
+        	printf(borrowingList[rowNum][6]);
         	printf(" ");
 
         	printf("Price:");
-        	printf(barrowingList[loopNum][7]);
+        	printf(borrowingList[rowNum][7]);
         	printf(" ");
         }
 
-        ++loopNum;//Esentially loopNum = loopNum + 1
+        ++rowNum;//Esentially rowNum = rowNum + 1
     }
+
+	fclose(borrowinglistf); //closes file
 }
 
-// Case 10 (Sophie Ross)
+// Case 12 (Sophie Ross)
 void approveBorrowing(void) {
+	char str_temp[26];
+	char borrowingList[250][7][26];
+	char menuChoice;
+
+	FILE *borrowinglistf;
+	borrowinglistf = fopen("borrowinglist.txt","r"); //opens borrowinglist file as readable
+	if (borrowinglistf == NULL) { //prints error and quits program if file contains no data/dopesnt exiist
+		printf("File has no data");
+		exit(1);
+	} 
+
+	int rowNum = 0;
+	int linePoiner = 0;
+
+	while (TRUE) {
+		str_temp = fgetc(borrowinglistf);
+		if (feof(borrowinglistf)) {
+			break;
+		}
+		
+		borrowingList[rowNum][linePoiner] = str_temp;
+
+		if (linePoiner == 7) {
+			++rowNum;
+			linePoiner =0;
+		} else {
+			++linePoiner;
+		}
+	}
+
+	FILE *acceptedborrowinglistf;
+	acceptedborrowinglistf = fopen("acceptedborrowinglist.txt","w");
+
+	if (acceptedborrowinglistf == NULL) {
+		printf("error");
+		exit(1);
+	}
+	
 	int listRow;
 	printf("Enter List Row:");
 	scanf("%int", &listRow);
 
 	while (TRUE) {
 		printf("Name:");
-		printf(barrowingList[listRow][0]);
+		printf(borrowingList[listRow][0]);
 		printf("\n");
 
 		printf("Item type:");
-		printf(barrowingList[listRow][1]);
+		printf(borrowingList[listRow][1]);
 		printf("\n");
 
 		printf("Stored:");
-		printf(barrowingList[listRow][2]);
+		printf(borrowingList[listRow][2]);
 		printf("\n");
 
     	printf("Pick up:");
-		printf(barrowingList[listRow][3]);
+		printf(borrowingList[listRow][3]);
     	printf("\n");
 
 		printf("Comment:");
-		printf(barrowingList[listRow][4]);
+		printf(borrowingList[listRow][4]);
 		printf("\n");
 
     	printf("Quality:");
-    	printf(barrowingList[listRow][5]);
+    	printf(borrowingList[listRow][5]);
 		printf("\n");
 
 		printf("Location:");
-		printf(barrowingList[listRow][6]);
+		printf(borrowingList[listRow][6]);
 		printf("\n");
 
 		printf("Price:");
-		printf(barrowingList[listRow][7]);
+		printf(borrowingList[listRow][7]);
 		printf("\n");
 
 		printf("Accept or Deny borrow request[A/D]");
@@ -422,46 +827,48 @@ void approveBorrowing(void) {
 		if (menuChoice == 'A' || menuChoice == 'a' || menuChoice == 'D' || menuChoice == 'd') {
 			if (menuChoice == 'A' || menuChoice == 'a') {
 				for (int i = 0; i <= 99; ++i) {
-					if (acceptedBorrowing[i][0] == NULL) {
+					if (acceptedborrowinglistf[i][0] == NULL) {
 						int listRowTwo = i;
 						break;
 					}
 				}
 			
-				acceptedBorrowing[listRowTwo][0] = borrowList[listRow][0];
-				acceptedBorrowing[listRowTwo][1] = borrowList[listRow][1];
-				acceptedBorrowing[listRowTwo][2] = borrowList[listRow][2];
-				acceptedBorrowing[listRowTwo][3] = borrowList[listRow][3];
-				acceptedBorrowing[listRowTwo][4] = borrowList[listRow][4];
-				acceptedBorrowing[listRowTwo][5] = borrowList[listRow][5];
-				acceptedBorrowing[listRowTwo][6] = borrowList[listRow][6];
-				acceptedBorrowing[listRowTwo][7] = borrowList[listRow][7];
+				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][0]);
+				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][1]);
+				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][2]);
+				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][3]);
+				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][4]);
+				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][5]);
+				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][6]);
+				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][7]);
 			}
-			borrowList[listRow][0] = NULL;
-			borrowList[listRow][1] = NULL;
-			borrowList[listRow][2] = NULL;
-			borrowList[listRow][3] = NULL;
-			borrowList[listRow][4] = NULL;
-			borrowList[listRow][5] = NULL;
-			borrowList[listRow][6] = NULL;
-			borrowList[listRow][7] = NULL;
+			borrowingList[listRow][0] = NULL;
+			borrowingList[listRow][1] = NULL;
+			borrowingList[listRow][2] = NULL;
+			borrowingList[listRow][3] = NULL;
+			borrowingList[listRow][4] = NULL;
+			borrowingList[listRow][5] = NULL;
+			borrowingList[listRow][6] = NULL;
+			borrowingList[listRow][7] = NULL;
 			break;
 		} else {
 			printf("Invaild Input");
 		}
 	}
-}
-*/
+	
+	fclose(borrowinglistf);
+	fclose(acceptedborrowinglistf);
+}*/
 
 // Menu Switch Case for Admin Main Menu (Kamyrn Hammond)
 void admin(void){
 	system("@cls||clear");
 	// Project Title
     puts("\n\n\t***************************************************************\n\t\tWelcome to the Warehouse Managment System (WMS)\n\t***************************************************************\n\n");
-	int task;
-	task=adminMenu();
+	int option;
+	option=adminMenu();
 		
-	switch (task){
+	switch (option){
 		case 1:
 			view();
 			break;
@@ -477,22 +884,28 @@ void admin(void){
 		case 5:
 			delete();
 			break;
-		/*case 6:
-			//
+		case 6:
+			addItems();
 			break;
 		case 7:
-			//
+			searchItems();
 			break;
 		case 8:
-			//
+			editItems();
 			break;
 		case 9:
-			viewBorrowing();
+			deleteItems();
 			break;
 		case 10:
-			approvingBorrowing();
+			viewItems();
+			break;
+		/*case 11:
+			viewBorrowing();
+			break;
+		case 12:
+			approveBorrowing();
 			break;*/
-		case 11:
+		case 13:
 			printf("\nThank you for using the Warehouse Management System! Have a good day!\n");
 			exit(1);
 		}

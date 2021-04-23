@@ -14,7 +14,7 @@
 
 // Menu Options for Logging In (Arely Parra López)
 	int loginMenu(void){
-		puts("\n\n\t****************************\n\t\t Main Menu\n\t****************************\n\n");
+		puts("\n\n\t****************************\n\t\t Main Log-In Menu\n\t****************************\n\n");
 		printf("\t[1] Registration Page\n");
 		printf("\t[2] Admin Log-In Page\n");
 		printf("\t[3] Guest User Log-In Page\n");
@@ -168,7 +168,7 @@ int* adminLogin(void){
 // Case 3 (Kamryn Hammond & Arely Parra López
 int* guestLogin(void){
 		system("@cls||clear");
-		puts("\n\n\t***********************\n\t\tAdmin Log-In Page\n\t***********************\n\n");
+		puts("\n\n\t***********************\n\t\tGuest User Log-In Page\n\t***********************\n\n");
 	
 		// return array
 		static int output[2];
@@ -260,10 +260,10 @@ void main(void){
 	system("@cls||clear");
 	// Project Title
     puts("\n\n\t***************************************************************\n\t\tWelcome to the Warehouse Managment System (WMS)\n\t***************************************************************\n\n");
-	int task;
-	task=loginMenu();
+	int choice;
+	choice=loginMenu();
 		
-	switch (task){
+	switch (choice){
 		case 1:
 			registration();
 			break;
@@ -288,5 +288,5 @@ void main(void){
 	}else if (quit=='n'||quit=='N'){
 		printf("\nThank you for using the Warehouse Management System! Have a good day!\n");
 		exit(1);
-	} 
+	}
 }

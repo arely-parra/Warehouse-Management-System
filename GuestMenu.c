@@ -120,13 +120,13 @@ void makeList(void){
 		puts("\n\n\t***********************\n\t\tGenerate a List of Favorite Items\n\t***********************\n\n");
 		// Item dataTypes
 		struct entity{
-			char Type[20];
-			char ID[20];
-			char Name[20];
-			char Provider[20];
-			char Quantity[20];
-			char Place[20];
-			char Price[20];
+			char Type[100];
+			char ID[100];
+			char Name[100];
+			char Provider[100];
+			char Quantity[100];
+			char Place[100];
+			char Price[100];
 			
 		};
 		struct entity new;
@@ -177,13 +177,13 @@ void viewList(void){
 		}
 		
 		struct entity{
-			char Type[20];
-			char ID[20];
-			char Name[20];
-			char Provider[20];
-			char Quantity[20];
-			char Place[20];
-			char Price[20];
+			char Type[100];
+			char ID[100];
+			char Name[100];
+			char Provider[100];
+			char Quantity[100];
+			char Place[100];
+			char Price[100];
 			
 		};
 		struct entity new;
@@ -232,14 +232,14 @@ void requestItems(void){
 		puts("\n\n\t***********************\n\t\tGenerate a Borrowing/Buying Request\n\t***********************\n\n");
 		// Item dataTypes
 		struct entity{
-			char Type[20];
-			char ID[20];
-			char Name[20];
-			char Provider[20];
-			char Quantity[20];
-			char Place[20];
-			char Price[20];
-			char Length[20];
+			char Type[100];
+			char ID[100];
+			char Name[100];
+			char Provider[100];
+			char Quantity[100];
+			char Place[100];
+			char Price[100];
+			char Length[100];
 			
 		};
 		struct entity new;
@@ -301,11 +301,11 @@ void viewHistory(void){
 	}
 	
 	struct entity{
-		char ID[20];
-		char Name[20];
-		char Borrower[20];
-		char Taken[20];
-		char Returned[20];
+		char ID[100];
+		char Name[100];
+		char Borrower[100];
+		char Taken[100];
+		char Returned[100];
 		
 	};
 	struct entity new;
