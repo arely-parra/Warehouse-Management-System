@@ -19,16 +19,18 @@
 		printf("\t[4] Add Guest User to WMS\n");
 		printf("\t[5] Remove Guest User from WMS\n");
 		printf("\t[6] Add Items to Warehouse\n");
-		printf("\t[7] Delete Items from Warehouse\n");
+		printf("\t[7] Search Items from Warehouse\n");
 		printf("\t[8] Edit Items from Warehouse\n");
-		printf("\t[9] View List of Borrowing Requests\n");
-		printf("\t[10] Accept or Deny Borrowing Requests\n");
-		printf("\t[11] Exit\n");
+		printf("\t[9] Delete Items from Warehouse\n");
+		printf("\t[10] View Items from Warehouse\n");
+		printf ("\t[11] View List of Borrowing Requests\n");
+		printf("\t[12] Accept or Deny Borrowing Requests\n");
+		printf("\t[13] Exit\n");
 		
 		printf("\n\tPlease select one of the above options to proceed: ");
 		int input;
 		scanf("%d",&input);
-		if(input>=1 && input <=11){
+		if(input>=1 && input <=13){
 			return input;
 		}else{
 			system("@cls||clear");
