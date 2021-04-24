@@ -198,10 +198,10 @@ void viewList(void){
 			pline++;
 			if(pline == 1){
 				myString[strcspn(myString, "\n")] = 0;
-				strcpy(new.Type,myString);
+				strcpy(new.ID,myString);
 			}else if(pline == 2){
 				myString[strcspn(myString, "\n")] = 0;
-				strcpy(new.ID,myString);
+				strcpy(new.Type,myString);
 			}else if(pline == 3){
 				myString[strcspn(myString, "\n")] = 0;
 				strcpy(new.Name,myString);
@@ -246,10 +246,10 @@ void requestItems(void){
 		
 		//Prompt Admin
 		printf("\tTo make a request, please add the following information about an item:\n");
-		printf("\tItem Type: ");
-		scanf("%s",&new.Type);
 		printf("\tItem ID: ");
 		scanf("%s",&new.ID);
+		printf("\tItem Type: ");
+		scanf("%s",&new.Type);
 		printf("\tItem Name: ");
 		scanf("%s",&new.Name);
 		printf("\tProvider Name: ");
@@ -272,7 +272,7 @@ void requestItems(void){
 		  printf("Please reset everything and try again!");
 		  exit(1);             
 		}
-		fprintf(myfile,"%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n----------\n",&new.Type,&new.ID,&new.Name,&new.Provider,&new.Quantity,&new.Place,&new.Price,&new.Length);
+		fprintf(myfile,"%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n----------\n",&new.ID,&new.Type,&new.Name,&new.Provider,&new.Quantity,&new.Place,&new.Price,&new.Length);
 		fclose(myfile);
 		
 		//Double check with User
@@ -283,7 +283,7 @@ void requestItems(void){
 		scanf("%c",&quit);
 		if(quit=='y'||quit=='Y'){
 			requestItems();
-		}
+		};
 }
 
 // Case 5 (Arely Parra Lopez)

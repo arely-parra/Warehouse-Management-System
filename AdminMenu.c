@@ -667,198 +667,127 @@ void viewItems(void){
 		fclose(invfile);
 	}
 	
-/*// Case 11 (Sophie Ross)
+// Case 11 (Sophie Ross)
 void viewBorrowing(void){
-	char str_temp[26];
-	char borrowingList[500][7][26];
-
-	FILE *borrowinglistf;
-	borrowinglistf = fopen("borrowinglist.txt","r"); //opens borrowinglist file as readable
-	if (borrowinglistf == NULL) { //prints error and quits program if file contains no data/dopesnt exiist
-		printf("File has no data");
-		exit(1);
-	} 
-
-	int rowNum = 0;
-	int linePointer = 0;
-
-	while (TRUE) {
-		str_temp = fgetc(borrowinglistf);
-		if (feof(borrowinglistf)) {
-			break;
+		system("@cls||clear");
+		puts("\n\n\t***********************\n\t\tView User's Borrowing Request\n\t***********************\n\n");
+		// Open the text file
+		FILE *myfile;
+		myfile = fopen("List.txt","r"); 
+		if(myfile == NULL)
+		{
+		  printf("An error has happened!\n");
+		  printf("Please reset everything and try again!\n");
+		  exit(1);             
+		}
+		void viewList(void){
+		system("@cls||clear");
+		puts("\n\n\t***********************\n\t\tView Saved List of Favorite Items\n\t***********************\n\n");
+		// Open the text file
+		FILE *myfile;
+		myfile = fopen("List.txt","r"); 
+		if(myfile == NULL)
+		{
+		  printf("An error has happened!\n");
+		  printf("Please reset everything and try again!\n");
+		  exit(1);             
 		}
 		
-		borrowingList[rowNum][linePointer] = str_temp;
-
-		if (linePoiner == 7) {
-			++rowNum;
-			linePoiner = 0;
-		} else {
-			++linePointer;
+		struct entity{
+			char Type[100];
+			char ID[100];
+			char Name[100];
+			char Provider[100];
+			char Quantity[100];
+			char Place[100];
+			char Price[100];
+			
+		};
+		struct entity new;
+		//TABLE TITLES
+		printf("\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 Favorite Item List \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n");
+		printf("\t=======================================================================\n");
+		printf("\tItem Type\t\t Item ID\t\t Item Name\t\t Item Provider\t\t Item Quantity\t\t Item Place\t\t Item Price\n");
+		printf("\t=======================================================================\n");
+		char myString[100];
+		int pline=0;
+		while(fgets(myString, sizeof(myString),myfile) != NULL){
+			pline++;
+			if(pline == 1){
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.Type,myString);
+			}else if(pline == 2){
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.ID,myString);
+			}else if(pline == 3){
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.Name,myString);
+			}else if(pline == 4){
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.Provider,myString);
+			}else if(pline == 5){
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.Quantity,myString);
+			}else if(pline == 6){
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.Place,myString);
+			}else if(pline == 7){
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.Price,myString);
+			}else if(pline == 8){
+				printf("\t%-5s\t\t %-5s\t\t %-5s\t\t %-5s\t\t %-5s\t\t %-5s\t\t %-5s\t\t %-5s\n",&new.Type,&new.ID,&new.Name,&new.Provider,&new.Quantity,&new.Place,&new.Price);
+				pline=0;
+			}
 		}
+		//close the file
+		fclose(myfile);
 	}
-
-	rowNum = 0;
-
-    while (rowNum <= 250) { //while loop to list all barroing requests
-    	if (barrowingList[rowNum][0] != NUll) { 
-    	    printf("List row:");
-			printf(rowNum);
-			printf(" ");
-
-    	    printf("Name:");
-    	    printf(borrowingList[rowNum][0]);
-    	    printf(" ");
-
-     		printf("Item type:");
-    	    printf(borrowingList[rowNum][1]);
-    	    printf(" ");
-
-	        printf("Stored:");
-	        printf(borrowingList[rowNum][2]);
-	        printf(" ");
-
-	        printf("Pick up:");
-	        printf(borrowingList[rowNum][3]);
-	        printf(" ");
-
-	        printf("Comment:");
- 	 	  	printf(borrowingList[rowNum][4]);
-	    	printf(" ");
-
-       		printf("Quality:");
-    		printf(borrowingList[rowNum][5]);
-        	printf(" ");
-
-    		printf("Location:");
-        	printf(borrowingList[rowNum][6]);
-        	printf(" ");
-
-        	printf("Price:");
-        	printf(borrowingList[rowNum][7]);
-        	printf(" ");
-        }
-
-        ++rowNum;//Esentially rowNum = rowNum + 1
-    }
-
-	fclose(borrowinglistf); //closes file
 }
 
-// Case 12 (Sophie Ross)
-void approveBorrowing(void) {
-	char str_temp[26];
-	char borrowingList[250][7][26];
-	char menuChoice;
 
-	FILE *borrowinglistf;
-	borrowinglistf = fopen("borrowinglist.txt","r"); //opens borrowinglist file as readable
-	if (borrowinglistf == NULL) { //prints error and quits program if file contains no data/dopesnt exiist
-		printf("File has no data");
-		exit(1);
-	} 
-
-	int rowNum = 0;
-	int linePoiner = 0;
-
-	while (TRUE) {
-		str_temp = fgetc(borrowinglistf);
-		if (feof(borrowinglistf)) {
-			break;
-		}
+// Case 12 (Kamryn Hammond)
+void acceptDeny(void){
+		system("@cls||clear");
+		puts("\n\n\t***********************\n\t\tDeny or Accept Guest User's Requests\n\t***********************\n\n");
+		// passwords dataTypes
+		struct entity{
+			char ID[20];
+			char accept[20];
+			char deny[20];
+		};
+		struct entity new;
 		
-		borrowingList[rowNum][linePoiner] = str_temp;
-
-		if (linePoiner == 7) {
-			++rowNum;
-			linePoiner =0;
-		} else {
-			++linePoiner;
+		//Prompt Admin
+		printf("\tTo accept or deny the Guest User's requests:\n");
+		printf("\tItem ID: ");
+		scanf("%s",&new.ID);
+		printf("\tAccept (y/n): ");
+		scanf("%s",&new.accept);
+		printf("\tpassword: ");
+		scanf("%s",&new.deny);
+		
+		// print on a textfile
+		FILE *myfile;
+		myfile = fopen("AcceptDeny.txt","a"); 
+		if(myfile == NULL)
+		{
+		  printf("An error has happened!");
+		  printf("Please reset everything and try again!");
+		  exit(1);             
+		}
+		fprintf(myfile,"%s\n%s\n%s\n----------\n",&new.ID,&new.accept,&new.deny);
+		fclose(myfile);
+		
+		//Double check with Admin
+		puts("\tThe request was successful");
+		printf("\t Would you like to add another item(y/n): ");
+		char quit;
+		getchar();
+		scanf("%c",&quit);
+		if(quit=='y'||quit=='Y'){
+			acceptDeny();
 		}
 	}
-
-	FILE *acceptedborrowinglistf;
-	acceptedborrowinglistf = fopen("acceptedborrowinglist.txt","w");
-
-	if (acceptedborrowinglistf == NULL) {
-		printf("error");
-		exit(1);
-	}
-	
-	int listRow;
-	printf("Enter List Row:");
-	scanf("%int", &listRow);
-
-	while (TRUE) {
-		printf("Name:");
-		printf(borrowingList[listRow][0]);
-		printf("\n");
-
-		printf("Item type:");
-		printf(borrowingList[listRow][1]);
-		printf("\n");
-
-		printf("Stored:");
-		printf(borrowingList[listRow][2]);
-		printf("\n");
-
-    	printf("Pick up:");
-		printf(borrowingList[listRow][3]);
-    	printf("\n");
-
-		printf("Comment:");
-		printf(borrowingList[listRow][4]);
-		printf("\n");
-
-    	printf("Quality:");
-    	printf(borrowingList[listRow][5]);
-		printf("\n");
-
-		printf("Location:");
-		printf(borrowingList[listRow][6]);
-		printf("\n");
-
-		printf("Price:");
-		printf(borrowingList[listRow][7]);
-		printf("\n");
-
-		printf("Accept or Deny borrow request[A/D]");
-		scanf("%c", &menuChoice);
-		if (menuChoice == 'A' || menuChoice == 'a' || menuChoice == 'D' || menuChoice == 'd') {
-			if (menuChoice == 'A' || menuChoice == 'a') {
-				for (int i = 0; i <= 99; ++i) {
-					if (acceptedborrowinglistf[i][0] == NULL) {
-						int listRowTwo = i;
-						break;
-					}
-				}
-			
-				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][0]);
-				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][1]);
-				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][2]);
-				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][3]);
-				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][4]);
-				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][5]);
-				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][6]);
-				fprintf(acceptedborrowinglistf, "%s", borrowingList[listRow][7]);
-			}
-			borrowingList[listRow][0] = NULL;
-			borrowingList[listRow][1] = NULL;
-			borrowingList[listRow][2] = NULL;
-			borrowingList[listRow][3] = NULL;
-			borrowingList[listRow][4] = NULL;
-			borrowingList[listRow][5] = NULL;
-			borrowingList[listRow][6] = NULL;
-			borrowingList[listRow][7] = NULL;
-			break;
-		} else {
-			printf("Invaild Input");
-		}
-	}
-	
-	fclose(borrowinglistf);
-	fclose(acceptedborrowinglistf);
-}*/
 
 // Menu Switch Case for Admin Main Menu (Kamyrn Hammond)
 void admin(void){
@@ -899,12 +828,12 @@ void admin(void){
 		case 10:
 			viewItems();
 			break;
-		/*case 11:
+		case 11:
 			viewBorrowing();
 			break;
 		case 12:
-			approveBorrowing();
-			break;*/
+			acceptDeny();
+			break;
 		case 13:
 			printf("\nThank you for using the Warehouse Management System! Have a good day!\n");
 			exit(1);

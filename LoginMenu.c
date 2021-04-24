@@ -284,9 +284,10 @@ void main(void){
 	getchar();
 	scanf("%c",&quit);
 	if(quit=='y'||quit=='Y'){
-		loginMenu();
+		main();
 	}else if (quit=='n'||quit=='N'){
 		printf("\nThank you for using the Warehouse Management System! Have a good day!\n");
 		exit(1);
 	}
 }
+
