@@ -12,13 +12,13 @@
 #include "AdminMenu.c"
 
 
-// Menu Options for Logging In (Arely Parra López)
+// Menu Options for Logging In (Jarred Crystal)
 	int loginMenu(void){
-		puts("\n\n\t****************************\n\t\t Main Log-In Menu\n\t****************************\n\n");
+		puts("\n\n\t***********************************\n\t\t Main Log-In Menu\n\t***********************************\n\n");
 		printf("\t[1] Registration Page\n");
 		printf("\t[2] Admin Log-In Page\n");
 		printf("\t[3] Guest User Log-In Page\n");
-		printf("\t[4] Exit\n");
+		printf("\t[4] Exit Program\n");
 		
 		printf("\n\tPlease select one of the above options to proceed: ");
 		int input;
@@ -32,10 +32,11 @@
 		}
 	}
 
-// Case 1 (Arely Parra López)
+
+// Case 1 (Sophie Ross)
 void registration(void){
 		system("@cls||clear");
-		puts("\n\n\t***********************\n\t\tRegistration for New Users\n\t***********************\n\n");
+		puts("\n\n\t**********************************************\n\t\tRegistration for New Users\n\t**********************************************\n\n");
 		// passwords dataTypes
 		struct entity{
 			char encrypt[20];
@@ -66,20 +67,20 @@ void registration(void){
 		fclose(myfile);
 		
 		// double check with user
-		puts("\tThe request was successful");
-		printf("\t Would you like to register another url, username, and password(y/n): ");
+		puts("\tYour registration was successful!\n\n");
+		printf("\tWould you like to register another encryption key, username, and password? (y/n): ");
 		char quit;
 		getchar();
 		scanf("%c",&quit);
 		if(quit=='y'||quit=='Y'){
 			registration();
 		}
-	}
+}
 
-// Case 2 (Kamyrn Hammond & Arely Parra López)
+// Case 2 (Kamyrn Hammond)
 int* adminLogin(void){
 		system("@cls||clear");
-		puts("\n\n\t***********************\n\t\tAdmin Log-In Page\n\t***********************\n\n");
+		puts("\n\n\t*********************************\n\t\tAdmin Log-In Page\n\t**********************************\n\n");
 	
 		// return array
 		static int output[2];
@@ -123,7 +124,6 @@ int* adminLogin(void){
 		fclose(myfile);
 		if(find ==0){
 			printf("\n\tThe %s does not exist in the Admin Log-In Records.\n",input);
-			//exit(1);
 			return output;
 		}
 		
@@ -143,19 +143,19 @@ int* adminLogin(void){
 			if(pline == (line+1)){
 				printf("\tUsername: %s",myString);
 			}else if(pline == (line+2)){
-				printf("\tPassword: %s",myString);
-				printf("\tAccess Has Been Granted. You have logged into the WMS as an Admin.\n");
+				printf("\tPassword: %s\n",myString);
+				printf("\tAccess Has Been Granted. You have logged into the WMS as an Admin.\n\n");
 				break;
 			};
 		}
 		
-		// Done by APL (9 lines)
-		printf("\tWould you like to enter the Admin Menu(y/n): ");
+		
+		printf("\tWould you like to enter the Admin Menu? (y/n): ");
 		char quit;
 		getchar();
 		scanf("%c",&quit);
 		if(quit=='y'||quit=='Y'){
-			adminMenu();
+			admin();
 		}else if(quit=='n'||quit=='N'){
 			loginMenu();
 		}
@@ -165,10 +165,10 @@ int* adminLogin(void){
 		return output;
 	};
 
-// Case 3 (Kamryn Hammond & Arely Parra López
+// Case 3 (Kamryn Hammond)
 int* guestLogin(void){
 		system("@cls||clear");
-		puts("\n\n\t***********************\n\t\tGuest User Log-In Page\n\t***********************\n\n");
+		puts("\n\n\t**************************************\n\t\tGuest User Log-In Page\n\t**************************************\n\n");
 	
 		// return array
 		static int output[2];
@@ -232,8 +232,8 @@ int* guestLogin(void){
 			if(pline == (line+1)){
 				printf("\tUsername: %s",myString);
 			}else if(pline == (line+2)){
-				printf("\tPassword: %s",myString);
-				printf("\tAccess Has Been Granted. You have logged into the WMS as a Guest User.\n");
+				printf("\tPassword: %s\n",myString);
+				printf("\tAccess Has Been Granted. You have logged into the WMS as a Guest User.\n\n");
 				break;
 			};
 		}
@@ -244,7 +244,7 @@ int* guestLogin(void){
 		getchar();
 		scanf("%c",&quit);
 		if(quit=='y'||quit=='Y'){
-			guestMenu(); //// CHANGE THIS WHEN COMBINED
+			guestMain(); //// CHANGE THIS WHEN COMBINED
 		}else if(quit=='n'||quit=='N'){
 			loginMenu();
 		}
@@ -255,7 +255,7 @@ int* guestLogin(void){
 	};
 
 
-// Menu Switch Case for Log-In Main Menu (Arely Parra López) 
+// Menu Switch Case for Log-In Main Menu (Jarred Crystal)
 void main(void){ 
 	system("@cls||clear");
 	// Project Title

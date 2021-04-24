@@ -42,7 +42,7 @@
 // Case 1 (Kamyrn Hammond)
 void view(void){
 		system("@cls||clear");
-		puts("\n\n\t***********************\n\t\tView Admin/Guest Usernames and Passwords to Log In\n\t***********************\n\n");
+		puts("\n\n\t*********************************************************************\n\t\tView Admin/Guest Usernames and Passwords to Log In\n\t*********************************************************************\n\n");
 		// Open the text file
 		FILE *myfile;
 		myfile = fopen("LogIn.txt","r"); 
@@ -60,10 +60,10 @@ void view(void){
 		};
 		struct entity new;
 		//TABLE TITLES
-		printf("\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 Recorded Usernames & Passwords \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n");
-		printf("\t=======================================================================\n");
+		printf("\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 Recorded Usernames & Passwords \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n");
+		printf("\t=================================================================\n");
 		printf("\tKey\t\t\t\t Username\t\t Password\n");
-		printf("\t=======================================================================\n");
+		printf("\t=================================================================\n");
 		char myString[100];
 		int pline=0;
 		while(fgets(myString, sizeof(myString),myfile) != NULL){
@@ -86,10 +86,10 @@ void view(void){
 		fclose(myfile);
 	}
 
-// Case 2 (Kamyrn Hammond)
+// Case 2 (Kamyrn Hammond) 
 int* search(void){
 		system("@cls||clear");
-		puts("\n\n\t***********************\n\t\tSearch for Admin/Guest Usernames and/or Passwords\n\t***********************\n\n");
+		puts("\n\n\t*******************************************************************************\n\t\tSearch and/or Change for Admin/Guest Usernames and/or Passwords\n\t*******************************************************************************\n\n");
 		// return array
 		static int output[2];
 		
@@ -163,8 +163,6 @@ int* search(void){
 	
 // Case 3 (Kamryn Hammond)
 void edit(void){
-		puts("\n\n\t***********************\n\t\tChange the Admin/Guest Usernames and/or Passwords\n\t***********************\n\n");
-		
 		int* place=search();
 		// return array [find, line]
 		//printf("%d, %d",place[0],place[1]);
@@ -197,7 +195,6 @@ void edit(void){
 					pline++;
 					if(pline != (line+1) && pline != (line+2)){//we just want to change username and password
 						fprintf(tempfile,"%s",myString);
-						printf("\t%s has been deleted\n",myString);
 					}else if(pline == (line+1)){
 						fprintf(tempfile,"%s\n",username);
 					}else if(pline == (line+2)){
@@ -207,13 +204,13 @@ void edit(void){
 				fclose(originalfile);
 				fclose(tempfile);
 				
-				// remove the original file and rename the temorary file
+				// remove the original file and rename the temporary file
 				remove("LogIn.txt");
 				rename("temp.txt","LogIn.txt");
 				
 				// double check with the user
-				puts("\tThe request was successful");
-				printf("\tWould you like to adjust another item(y/n): ");
+				puts("\n\tThe change in log-in credentials was successful!\n");
+				printf("\tWould you like to change another log-in credential? (y/n): ");
 				char quit;
 				getchar();
 				scanf("%c",&quit);
@@ -226,7 +223,7 @@ void edit(void){
 // Case 4 (Kamyrn Hammond)
 void add(void){
 		system("@cls||clear");
-		puts("\n\n\t***********************\n\t\tAdd Guest User to WMS\n\t***********************\n\n");
+		puts("\n\n\t*************************************\n\t\tAdd Guest User to WMS\n\t*************************************\n\n");
 		// passwords dataTypes
 		struct entity{
 			char encrypt[20];
@@ -236,7 +233,7 @@ void add(void){
 		struct entity new;
 		
 		//Prompt Admin
-		printf("\tTo add a new Guest username & password, please add the following inform:\n");
+		printf("\tTo add a new Guest username & password, please add the following information:\n");
 		printf("\tencyrption key: ");
 		scanf("%s",&new.encrypt);
 		printf("\tusername: ");
@@ -257,8 +254,8 @@ void add(void){
 		fclose(myfile);
 		
 		//Double check with Admin
-		puts("\tThe request was successful");
-		printf("\t Would you like to add another item(y/n): ");
+		puts("\n\tThe request was successful!");
+		printf("\n\tWould you like to add another item(y/n): ");
 		char quit;
 		getchar();
 		scanf("%c",&quit);
@@ -274,9 +271,9 @@ void delete(void){
 		// return array [find, line]
 		//printf("%d, %d",place[0],place[1]);
 		int find=place[0];
-		int line=place[1];
+		int line=place[0];
 		if(find == 0){
-			printf("\tYour desired URL does not exists!");
+			printf("\tYour desired encryption key does not exists!");
 		}else{
 				// open the textfile
 				FILE *originalfile= fopen("LogIn.txt","r");
@@ -295,19 +292,18 @@ void delete(void){
 					pline++;
 					if(pline != line && pline != (line+1) && pline != (line+2) && pline != (line+3)){
 						fprintf(tempfile,"%s",myString);
-						printf("\t%s has been deleted\n",myString);
 					}
 				}
 				fclose(originalfile);
 				fclose(tempfile);
 				
-				// remove the original file and rename the temorary file
+				// remove the original file and rename the temporary file
 				remove("LogIn.txt");
 				rename("temp.txt","LogIn.txt");
 				
 				// double check with the user
-				puts("\tThe request was successful");
-				printf("\tWould you like to remove another item(y/n): ");
+				puts("\n\tThe guest user has been removed.\n");
+				printf("\tWould you like to remove another guest user? (y/n): ");
 				char quit;
 				getchar();
 				scanf("%c",&quit);
@@ -319,6 +315,8 @@ void delete(void){
 
 // Case 6 (Alex Vita)
 void addItems (void){
+	system("@cls||clear");
+	puts("\n\n\t******************************************\n\t\tAdd Items to WMS Inventory\n\t******************************************\n\n");
 	struct entity {
 		
 		char type[100];
@@ -334,7 +332,7 @@ void addItems (void){
 	printf("Please enter the following information\n");
 	
 			//Enter Item Name
-		printf("Enter A 4 Character ID: ");
+		printf("Enter Item ID: ");
 		scanf("%c",&new.ID); //clears buffer
 		scanf("%[^\n]",&new.ID);
 				
@@ -359,8 +357,8 @@ void addItems (void){
 		scanf("%c",&new.creator); //clears buffer
 		scanf("%[^\n]",&new.creator);
 			
-			//Enter Quatity
-		printf("Enter Quatity: ");
+			//Enter Quantity
+		printf("Enter Quantity: ");
 		scanf("%c",&new.qty);
 		scanf("%[^\n]",&new.qty);
 			
@@ -377,16 +375,16 @@ void addItems (void){
 	
 
 	
-		FILE *invfile;
-			invfile = fopen("inventory.txt","a");
-				if (invfile == NULL)
+		FILE *myfile;
+			myfile = fopen("inventory.txt","a");
+				if (myfile == NULL)
 				{
 					printf("invalid file");
 					exit(1);
 				}
-				fprintf(invfile,"%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n--------\n"
+				fprintf(myfile,"%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n--------\n"
 				,&new.ID,&new.type,&new.store,&new.pick,&new.creator,&new.qty,&new.place,&new.price);
-				fclose(invfile);
+				fclose(myfile);
 				
 				puts("Request Succesful");
 				printf("Would you like to add another item (y/n):");
@@ -400,6 +398,8 @@ void addItems (void){
 
 // Case 7 (Alex Vita)
 int* searchItems(void){
+		system("@cls||clear");
+		puts("\n\n\t*******************************************************************************\n\t\tSearch and/or Change for Items in the Warehouse MS\n\t*******************************************************************************\n\n");
 		
 		static int output[2];
 		printf("What is the Name?");
@@ -487,9 +487,9 @@ int* searchItems(void){
 			
 	};	
 
-// Case 8 (Alex Vita)
+// Case 8 (Alex Vita) 
 void editItems (void){
-	int* place = search();
+	int* place=search();
 	int find = place[0];
 	int line = place [1];
 	if(find == 0){
@@ -507,7 +507,7 @@ void editItems (void){
 			invfile = fopen("inventory.txt","r");
 			
 			FILE *tempfile;
-			tempfile = fopen("temp.txt","w");
+			tempfile = fopen("tempinventory.txt","w");
 			
 				if (invfile == NULL || tempfile == NULL)
 				{
@@ -538,9 +538,9 @@ void editItems (void){
 				fclose(tempfile);
 				
 				remove("inventory.txt");
-				rename("temp.txt","inventory.txt");
+				rename("tempinventory.txt","inventory.txt");
 				
-				puts("\tThe request was successful");
+				puts("\n\tItem has been edited successfully!\n");
 				printf("\tWould you like to adjust another item(y/n): ");
 				char quit;
 				getchar();
@@ -672,22 +672,10 @@ void viewItems(void){
 // Case 11 (Sophie Ross)
 void viewBorrowing(void){
 		system("@cls||clear");
-		puts("\n\n\t***********************\n\t\tView User's Borrowing Request\n\t***********************\n\n");
+		puts("\n\n\t****************************************************\n\t\tView Guest User's Borrowing Requests\n\t****************************************************\n\n");
 		// Open the text file
 		FILE *myfile;
-		myfile = fopen("Request.txt","r"); 
-		if(myfile == NULL)
-		{
-		  printf("An error has happened!\n");
-		  printf("Please reset everything and try again!\n");
-		  exit(1);             
-		}
-		void viewList(void){
-		system("@cls||clear");
-		puts("\n\n\t***********************\n\t\tView Saved List of Favorite Items\n\t***********************\n\n");
-		// Open the text file
-		FILE *myfile;
-		myfile = fopen("List.txt","r"); 
+		myfile = fopen("Requests.txt","r"); 
 		if(myfile == NULL)
 		{
 		  printf("An error has happened!\n");
@@ -703,24 +691,25 @@ void viewBorrowing(void){
 			char Quantity[100];
 			char Place[100];
 			char Price[100];
+			char Length[100];
 			
 		};
 		struct entity new;
 		//TABLE TITLES
-		printf("\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 Favorite Item List \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n");
-		printf("\t=======================================================================\n");
-		printf("\tItem Type\t\t Item ID\t\t Item Name\t\t Item Provider\t\t Item Quantity\t\t Item Place\t\t Item Price\n");
-		printf("\t=======================================================================\n");
-		char myString[100];
+		printf("\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 Guest User's Request List \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n");
+		printf("\t===============================================================================================================================\n");
+		printf("\tItem ID\t Item Type\t Item Name\t\t Item Provider\t Item Quantity\t Item Place\t Item Price\t Borrowing Time\n");
+		printf("\t===============================================================================================================================\n");
+		char myString[10000];
 		int pline=0;
 		while(fgets(myString, sizeof(myString),myfile) != NULL){
 			pline++;
 			if(pline == 1){
 				myString[strcspn(myString, "\n")] = 0;
-				strcpy(new.Type,myString);
+				strcpy(new.ID,myString);
 			}else if(pline == 2){
 				myString[strcspn(myString, "\n")] = 0;
-				strcpy(new.ID,myString);
+				strcpy(new.Type,myString);
 			}else if(pline == 3){
 				myString[strcspn(myString, "\n")] = 0;
 				strcpy(new.Name,myString);
@@ -737,20 +726,22 @@ void viewBorrowing(void){
 				myString[strcspn(myString, "\n")] = 0;
 				strcpy(new.Price,myString);
 			}else if(pline == 8){
-				printf("\t%-5s\t\t %-5s\t\t %-5s\t\t %-5s\t\t %-5s\t\t %-5s\t\t %-5s\t\t %-5s\n",&new.Type,&new.ID,&new.Name,&new.Provider,&new.Quantity,&new.Place,&new.Price);
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.Length,myString);
+			}else if(pline == 9){
+				printf("\t%-5s\t %-10s\t %-10s\t\t %-10s\t %-5s\t\t %-5s\t %-10s\t %-5s\n",&new.ID,&new.Type,&new.Name,&new.Provider,&new.Quantity,&new.Place,&new.Price,&new.Length);
 				pline=0;
 			}
 		}
 		//close the file
 		fclose(myfile);
-	}
 }
 
 
 // Case 12 (Sophie Ross)
 void acceptDeny(void){
 		system("@cls||clear");
-		puts("\n\n\t***********************\n\t\tDeny or Accept Guest User's Requests\n\t***********************\n\n");
+		puts("\n\n\t****************************************************\n\t\tDeny or Accept Guest User's Requests\n\t****************************************************\n\n");
 		// passwords dataTypes
 		struct entity{
 			char ID[20];
@@ -763,9 +754,9 @@ void acceptDeny(void){
 		printf("\tTo accept or deny the Guest User's requests:\n");
 		printf("\tItem ID: ");
 		scanf("%s",&new.ID);
-		printf("\tAccept (y/n): ");
+		printf("\tAccept Item Request? (y/n): ");
 		scanf("%s",&new.accept);
-		printf("\tpassword: ");
+		printf("\tDeny Items Request? (y/n): ");
 		scanf("%s",&new.deny);
 		
 		// print on a textfile
@@ -781,8 +772,8 @@ void acceptDeny(void){
 		fclose(myfile);
 		
 		//Double check with Admin
-		puts("\tThe request was successful");
-		printf("\t Would you like to add another item(y/n): ");
+		puts("\n\tYou have successfully accepted or denied this guest user's item request!\n");
+		printf("\tWould you like to accept/deny another guest user's item request? (y/n): ");
 		char quit;
 		getchar();
 		scanf("%c",&quit);
@@ -791,7 +782,7 @@ void acceptDeny(void){
 		}
 	}
 
-// Menu Switch Case for Admin Main Menu (Kamyrn Hammond)
+// Menu Switch Case for Admin Main Menu (Jarred Crystal)
 void admin(void){
 	system("@cls||clear");
 	// Project Title

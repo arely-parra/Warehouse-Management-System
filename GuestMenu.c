@@ -10,8 +10,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Menu Options for Guest User Menu (Jarred Crystal)
 	int guestMenu(void){
-		puts("\n\n\t***********************\n\t\tGuest Menu\n\t***********************\n\n");
+		puts("\n\n\t***************************\n\t\tGuest Menu\n\t***************************\n\n");
 		printf("\t[1] Search WMS for Items in Warehouse\n");
 		printf("\t[2] Generate a List of Favorite Items\n");
 		printf("\t[3] View List of Favorite Items\n");
@@ -30,40 +31,41 @@
 		}
 }	
 
+
 // Case 1 (Arely Parra Lopez)
 int* searchWMS(void){
 		system("@cls||clear");
-		puts("\n\n\t***********************\n\t\tSearch for Items in the WMS\n\t***********************\n\n");
+		puts("\n\n\t**********************************************\n\t\tSearch for Items in the WMS\n\t**********************************************\n\n");
 		// return array
-		static int output[8];
+		static int output[9];
 		// Get the place
-		printf("\tWhat is the Item Type? ");
-		char Type[100];
+		printf("\tWhat is the Item ID? ");
+		char ID[100];
 		char input[100];
-		scanf("%s",&Type);
-		strcpy(input,Type);
-		strcat(Type, "\n");
+		scanf("%s",&ID);
+		strcpy(input,ID);
+		strcat(ID, "\n");
 		
 		
 		// open the textfile
 		FILE *myfile;
-		myfile = fopen("WMS.txt","r"); 
+		myfile = fopen("inventory.txt","r"); 
 		if(myfile == NULL)
 		{
-		  printf("An error is happend!!!");
+		  printf("An error has happened!!!");
 		  printf("Please reset everything and try again!!!");
 		  exit(1);             
 		}
 		
-		// search
+		// search capacity
 		char myString[100];
 		int line=0;
 		int find=0;
 		int fieldNumber=0;
 		while(fgets(myString, sizeof(myString),myfile) != NULL){
 			line++; fieldNumber++;
-			if(strcmp(myString, Type) == 0 && fieldNumber == 1){
-				printf("\n\tI found Item Type %s at line %d\n", input, line);
+			if(strcmp(myString, ID) == 0 && fieldNumber == 1){
+				printf("\n\tItem ID %s was found at line %d\n", input, line);
 				find=1;
 				output[0]=find;
 				output[1]=line;
@@ -76,17 +78,17 @@ int* searchWMS(void){
 		}
 		fclose(myfile);
 		if(find ==0){
-			printf("\n\t%s does not exist in your records\n",input);
+			printf("\n\tItem ID %s does not exist in your records\n",input);
 			//exit(1);
 			return output;
 		}
 		
 		//// return the information
 		// open the textfile
-		myfile = fopen("WMS.txt","r"); 
+		myfile = fopen("inventory.txt","r"); 
 		if(myfile == NULL)
 		{
-		  printf("An error is happend!!!");
+		  printf("An error has happened!!!");
 		  printf("Please reset everything and try again!!!");
 		  exit(1);             
 		}
@@ -95,7 +97,7 @@ int* searchWMS(void){
 		while(fgets(myString, sizeof(myString),myfile) != NULL){
 			pline++;
 			if(pline == (line+1)){
-				printf("\tItem ID: %s",myString);
+				printf("\tItem Type: %s",myString);
 			}else if(pline == (line+2)){
 				printf("\tItem Name: %s",myString);
 			}else if(pline == (line+3)){
@@ -108,16 +110,17 @@ int* searchWMS(void){
 				printf("\tItem Price: %s",myString);
 				break;
 			};
-		}
+		};
+
 		//close the file
 		fclose(myfile);
 		return output;
 	};
-
+	
 // Case 2 (Arely Parra Lopez)
 void makeList(void){
 	system("@cls||clear");
-		puts("\n\n\t***********************\n\t\tGenerate a List of Favorite Items\n\t***********************\n\n");
+		puts("\n\n\t**********************************************\n\t\tGenerate a List of Favorite Items\n\t**********************************************\n\n");
 		// Item dataTypes
 		struct entity{
 			char Type[100];
@@ -132,11 +135,11 @@ void makeList(void){
 		struct entity new;
 		
 		//Prompt Admin
-		printf("\tTo make a list of favorite items, please add the following information about an item:\n");
-		printf("\tItem Type: ");
-		scanf("%s",&new.Type);
+		printf("\tTo make a list of favorite items, please add the following information about the item:\n");
 		printf("\tItem ID: ");
 		scanf("%s",&new.ID);
+		printf("\tItem Type: ");
+		scanf("%s",&new.Type);
 		printf("\tItem Name: ");
 		scanf("%s",&new.Name);
 		printf("\tProvider Name: ");
@@ -157,15 +160,25 @@ void makeList(void){
 		  printf("Please reset everything and try again!");
 		  exit(1);             
 		}
-		fprintf(myfile,"%s\n%s\n%s\n%s\n%s\n%s\n%s\n----------\n",&new.Type,&new.ID,&new.Name,&new.Provider,&new.Quantity,&new.Place,&new.Price);
+		fprintf(myfile,"%s\n%s\n%s\n%s\n%s\n%s\n%s\n----------\n",&new.ID,&new.Type,&new.Name,&new.Provider,&new.Quantity,&new.Place,&new.Price);
 		fclose(myfile);
+		
+		// double check with user
+		puts("\n\tAddition of the item to your Favorite Items List was successful!\n");
+		printf("\tWould you like to add another item to your list of favorites? (y/n): ");
+		char quit;
+		getchar();
+		scanf("%c",&quit);
+		if(quit=='y'||quit=='Y'){
+			makeList();
+		}
 		
 }
 
 // Case 3 (Arely Parra Lopez)
 void viewList(void){
 		system("@cls||clear");
-		puts("\n\n\t***********************\n\t\tView Saved List of Favorite Items\n\t***********************\n\n");
+		puts("\n\n\t*************************************************\n\t\tView Saved List of Favorite Items\n\t*************************************************\n\n");
 		// Open the text file
 		FILE *myfile;
 		myfile = fopen("List.txt","r"); 
@@ -188,11 +201,11 @@ void viewList(void){
 		};
 		struct entity new;
 		//TABLE TITLES
-		printf("\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 Favorite Item List \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n");
-		printf("\t=======================================================================\n");
-		printf("\tItem Type\t\t Item ID\t\t Item Name\t\t Item Provider\t\t Item Quantity\t\t Item Place\t\t Item Price\n");
-		printf("\t=======================================================================\n");
-		char myString[100];
+		printf("\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 Favorite Item List \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n");
+		printf("\t===================================================================================================\n");
+		printf("\tItem ID\t Item Type\t Item Name\t Item Provider\t Item Quantity\t Item Place\t Item Price\n");
+		printf("\t===================================================================================================\n");
+		char myString[10000];
 		int pline=0;
 		while(fgets(myString, sizeof(myString),myfile) != NULL){
 			pline++;
@@ -218,7 +231,7 @@ void viewList(void){
 				myString[strcspn(myString, "\n")] = 0;
 				strcpy(new.Price,myString);
 			}else if(pline == 8){
-				printf("\t%-5s\t\t %-5s\t\t %-5s\t\t %-5s\t\t %-5s\t\t %-5s\t\t %-5s\t\t %-5s\n",&new.Type,&new.ID,&new.Name,&new.Provider,&new.Quantity,&new.Place,&new.Price);
+				printf("\t%-5s\t %-10s\t %-10s\t %-10s\t %-5s\t\t %-10s\t %-5s\n",&new.ID,&new.Type,&new.Name,&new.Provider,&new.Quantity,&new.Place,&new.Price);
 				pline=0;
 			}
 		}
@@ -229,7 +242,8 @@ void viewList(void){
 // Case 4 (Arely Parra Lopez)
 void requestItems(void){
 	system("@cls||clear");
-		puts("\n\n\t***********************\n\t\tGenerate a Borrowing/Buying Request\n\t***********************\n\n");
+		puts("\n\n\t***************************************************\n\t\tGenerate a Borrowing/Buying Request\n\t***************************************************\n\n");
+		
 		// Item dataTypes
 		struct entity{
 			char Type[100];
@@ -245,7 +259,7 @@ void requestItems(void){
 		struct entity new;
 		
 		//Prompt Admin
-		printf("\tTo make a request, please add the following information about an item:\n");
+		printf("\tTo make a request, please add the following information about the desired item:\n");
 		printf("\tItem ID: ");
 		scanf("%s",&new.ID);
 		printf("\tItem Type: ");
@@ -275,9 +289,10 @@ void requestItems(void){
 		fprintf(myfile,"%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n----------\n",&new.ID,&new.Type,&new.Name,&new.Provider,&new.Quantity,&new.Place,&new.Price,&new.Length);
 		fclose(myfile);
 		
+		
 		//Double check with User
-		puts("\tItem Information was successfully added to Request");
-		printf("\t Would you like to add another item to your request? Remember you can only add three items maximum!(y/n): ");
+		puts("\tItem information was successfully added to your requests!\n");
+		printf("\tWould you like to add another item to your request?(NOTE: You can only add 3 items max)(y/n): ");
 		char quit;
 		getchar();
 		scanf("%c",&quit);
@@ -289,7 +304,7 @@ void requestItems(void){
 // Case 5 (Arely Parra Lopez)
 void viewHistory(void){
 	system("@cls||clear");
-	puts("\n\n\t***********************\n\t\tHistory of Borrowed Items\n\t***********************\n\n");
+	puts("\n\n\t****************************************\n\t\tHistory of Borrowed Items\n\t****************************************\n\n");
 	// Open the text file
 	FILE *myfile;
 	myfile = fopen("History.txt","r"); 
@@ -311,10 +326,10 @@ void viewHistory(void){
 	struct entity new;
 	//TABLE TITLES
 	printf("\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 Favorite Item List \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n");
-	printf("\t=======================================================================\n");
-	printf("\tItem ID\t\t Item Name\t\t Borrowert\t Taken Out\t\t Returned\t\t\n");
-	printf("\t=======================================================================\n");
-	char myString[500];
+	printf("\t===================================================================\n");
+	printf("\tItem ID\t Item Name\t Borrower\t Taken Out\t Returned\n");
+	printf("\t===================================================================\n");
+	char myString[10000];
 	int pline=0;
 	while(fgets(myString, sizeof(myString),myfile) != NULL){
 		pline++;
@@ -334,7 +349,7 @@ void viewHistory(void){
 			myString[strcspn(myString, "\n")] = 0;
 			strcpy(new.Returned,myString);
 		}else if(pline == 6){
-			printf("\t%-10s\t\t\t %-5s\t\t\t %-5s\t\t\t %-5s\t\t\t %-5s\t\t\t %-5s\n",&new.ID,&new.Name,&new.Borrower,&new.Taken,&new.Returned);
+			printf("\t%-5s\t %-10s\t %-10s\t %-10s\t %-5s\n",&new.ID,&new.Name,&new.Borrower,&new.Taken,&new.Returned);
 			pline=0;
 		}
 	}
@@ -378,7 +393,7 @@ void guestMain(void){
 	getchar();
 	scanf("%c",&quit);
 	if(quit=='y'||quit=='Y'){
-		guestMenu();
+		guestMain();
 	}else if (quit=='n'||quit=='N'){
 		printf("\nThank you for using the Warehouse Management System! Have a good day!\n");
 		exit(1);
