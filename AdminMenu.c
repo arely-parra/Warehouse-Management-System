@@ -161,64 +161,63 @@ int* search(void){
 		return output;
 	};
 	
-// Case 3 (Kamryn Hammond)
+// Case 3 (Kamryn Hammond) (ALEX) ------
 void edit(void){
 		int* place=search();
-		// return array [find, line]
-		//printf("%d, %d",place[0],place[1]);
 		int find=place[0];
 		int line=place[1];
 		if(find == 0){
 			printf("\tYour encrytption key does not exists!!!");
 		}else{
-				// Get new values
-				char username[20], password[20];
-				printf("\tPlease enter your new Username for this encryption key: ");
-				scanf("%s",&username);
-				printf("\tPlease enter your new Password for this encyrption key: ");
-				scanf("%s",&password);
-				
-				// open the textfile
-				FILE *originalfile= fopen("LogIn.txt","r");
-				FILE *tempfile= fopen("temp.txt","w");
-				if(originalfile == NULL || tempfile == NULL )
-				{
-				  printf("An error has happened!");
-				  printf("Please reset everything and try again!");
-				  exit(1);             
-				}
-				
-				// paste all content to temporary file except the ones we want to edit
-				char myString[100];
-				int pline=0;
-				while(fgets(myString, sizeof(myString),originalfile) != NULL){
-					pline++;
-					if(pline != (line+1) && pline != (line+2)){//we just want to change username and password
-						fprintf(tempfile,"%s",myString);
-					}else if(pline == (line+1)){
-						fprintf(tempfile,"%s\n",username);
-					}else if(pline == (line+2)){
-						fprintf(tempfile,"%s\n",password);
-					}
-				}
-				fclose(originalfile);
-				fclose(tempfile);
-				
-				// remove the original file and rename the temporary file
-				remove("LogIn.txt");
-				rename("temp.txt","LogIn.txt");
-				
-				// double check with the user
-				puts("\n\tThe change in log-in credentials was successful!\n");
-				printf("\tWould you like to change another log-in credential? (y/n): ");
-				char quit;
-				getchar();
-				scanf("%c",&quit);
-				if(quit=='y'||quit=='Y'){
-					edit();
+			// Get new values
+			char username[20], password[20];
+			
+			printf("\n\tPlease enter your new Username for this encryption key: ");
+			scanf("%s",&username);
+			printf("\tPlease enter your new Password for this encyrption key: ");
+			scanf("%s",&password);
+			
+			// open the textfile
+			FILE *invfile=fopen("LogIn.txt","r");
+			FILE *tempfile=fopen("tempLogin.txt","w");
+			if(invfile == NULL || tempfile == NULL )
+			{
+			  printf("An error has happened!");
+			  printf("Please reset everything and try again!");
+			  exit(1);             
+			}
+			
+			// paste all content to temporary file except the ones we want to edit
+			char myString[100];
+			int pline=0;
+			while(fgets(myString, sizeof(myString),invfile) != NULL){
+				pline++;
+				if(pline != (line+1) && pline != (line+2)){//we just want to change username and password
+					fprintf(tempfile,"%s",myString);
+				}else if(pline == (line+1)){
+					fprintf(tempfile,"%s\n",username);
+				}else if(pline == (line+2)){
+					fprintf(tempfile,"%s\n",password);
 				}
 			}
-	};
+			fclose(invfile);
+			fclose(tempfile);
+			
+			// remove the original file and rename the temporary file
+			remove("LogIn.txt");
+			rename("tempLogin.txt","LogIn.txt");
+			
+			// double check with the user
+			puts("\n\tThe change in log-in credentials was successful!\n");
+			printf("\tWould you like to change another log-in credential? (y/n): ");
+			char quit;
+			getchar();
+			scanf("%c",&quit);
+			if(quit=='y'||quit=='Y'){
+				edit();
+			}
+		}
+};
 
 // Case 4 (Kamyrn Hammond)
 void add(void){
@@ -264,12 +263,10 @@ void add(void){
 		}
 	}
 
-// Case 5 (Kamryn Hammond)
+// Case 5 (Kamryn Hammond) (ALEX) ------
 void delete(void){
 		// We want to make sure the desired URL, Username, and Password exist
 		int* place=search();
-		// return array [find, line]
-		//printf("%d, %d",place[0],place[1]);
 		int find=place[0];
 		int line=place[0];
 		if(find == 0){
@@ -291,7 +288,7 @@ void delete(void){
 				while(fgets(myString, sizeof(myString),originalfile) != NULL){
 					pline++;
 					if(pline != line && pline != (line+1) && pline != (line+2) && pline != (line+3)){
-						fprintf(tempfile,"%s",myString);
+					fprintf(tempfile,"%s",myString);
 					}
 				}
 				fclose(originalfile);
@@ -299,7 +296,7 @@ void delete(void){
 				
 				// remove the original file and rename the temporary file
 				remove("LogIn.txt");
-				rename("temp.txt","LogIn.txt");
+				rename("tempLogin.txt","LogIn.txt");
 				
 				// double check with the user
 				puts("\n\tThe guest user has been removed.\n");
@@ -313,96 +310,94 @@ void delete(void){
 			}
 	}
 
-// Case 6 (Alex Vita)
+// Case 6 (Alex Vita) 
 void addItems (void){
 	system("@cls||clear");
 	puts("\n\n\t******************************************\n\t\tAdd Items to WMS Inventory\n\t******************************************\n\n");
 	struct entity {
 		
-		char type[100];
+		char Type[100];
 		char ID[100];
+		char Name[100];
 		char store[100];
 		char pick[100];
-		char creator [100];
-		char qty [100];
+		char provider [100];
+		char quantity [100];
 		char place [100];
 		char price [100];
 	};
 	struct entity new;
+	
+	// Prompt Admin
 	printf("Please enter the following information\n");
 	
-			//Enter Item Name
-		printf("Enter Item ID: ");
-		scanf("%c",&new.ID); //clears buffer
-		scanf("%[^\n]",&new.ID);
-				
-		
-			//Enter product type 
-		printf("Item Type: ");
-		scanf("%c",&new.type);
-		scanf("%[^\n]",&new.type);
-		
-				//Enter Pickout time
-		printf("Enter Stored Time (M/D/Y H:M): ");
-		scanf("%c",&new.store); //clears buffer
-		scanf("%[^\n]",&new.store);
-		
-			//Enter Pickout time
-		printf("Enter Pickout Time (M/D/Y H:M): ");
-		scanf("%c",&new.pick); //clears buffer
-		scanf("%[^\n]",&new.pick);
-				
-			//Enter Comments 
-		printf("Enter Your Name: ");
-		scanf("%c",&new.creator); //clears buffer
-		scanf("%[^\n]",&new.creator);
+	//Enter Item ID
+	printf("Enter Item ID: ");
+	scanf("%s",&new.ID); 
 			
-			//Enter Quantity
-		printf("Enter Quantity: ");
-		scanf("%c",&new.qty);
-		scanf("%[^\n]",&new.qty);
-			
-			//Enter Item Location
-		printf("Enter Storage Location: ");
-		scanf("%c",&new.place); //clears buffer
-		scanf("%[^\n]",&new.place);
-			
-			//Price
-		printf("Enter Price: ");
-		scanf("%c",&new.price);
-		scanf("%[^\n]",&new.price);
-		
+	//Enter Item type 
+	printf("Enter Item Type: ");
+	scanf("%s",&new.Type);
 	
-
+	//Enter Item Name  
+	printf("Enter Item Name ");
+	scanf("%s",&new.Name);
 	
-		FILE *myfile;
-			myfile = fopen("inventory.txt","a");
-				if (myfile == NULL)
-				{
-					printf("invalid file");
-					exit(1);
-				}
-				fprintf(myfile,"%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n--------\n"
-				,&new.ID,&new.type,&new.store,&new.pick,&new.creator,&new.qty,&new.place,&new.price);
-				fclose(myfile);
-				
-				puts("Request Succesful");
-				printf("Would you like to add another item (y/n):");
-				char quit;
-				getchar();
-				scanf("%c",&quit);
-				if(quit =='y'){
-					addItems();
-				}
+	//Enter Pickout time
+	printf("Enter Stored Time (MM/DD/YY_HH:MM): ");
+	scanf("%s",&new.store);
+	
+	//Enter Pickout time
+	printf("Enter Pickout Time(MM/DD/YY_HH:MM): ");
+	scanf("%s",&new.pick);
+			
+	//Enter Company's Name 
+	printf("Enter Provider Name: ");
+	scanf("%s",&new.provider);
+		
+	//Enter Quantity
+	printf("Enter Item Quantity: ");
+	scanf("%s",&new.quantity);
+		
+	//Enter Item Location
+	printf("Enter Item's Place (Shelf_#): ");
+	scanf("%s",&new.place);
+		
+	//Price
+	printf("Enter Item's Price: ");
+	scanf("%s",&new.price);
+	
+	
+	// print on a textfile
+	FILE *myfile;
+	myfile = fopen("inventory.txt","a");
+		if (myfile == NULL)
+		{
+			printf("invalid file");
+			exit(1);
+		}
+		fprintf(myfile,"%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n--------\n"
+		,&new.ID,&new.Type,&new.Name,&new.store,&new.pick,&new.provider,&new.quantity,&new.place,&new.price);
+		fclose(myfile);
+			
+		// double check with admin	
+		puts("Item successfully added to WMS inventory!");
+		printf("Would you like to add another item? (y/n):");
+		char quit;
+		getchar();
+		scanf("%c",&quit);
+		if(quit=='y'||quit=='Y'){
+			addItems();
+		}
 }
 
 // Case 7 (Alex Vita)
 int* searchItems(void){
 		system("@cls||clear");
-		puts("\n\n\t*******************************************************************************\n\t\tSearch and/or Change for Items in the Warehouse MS\n\t*******************************************************************************\n\n");
+		puts("\n\n\t***********************************************************************\n\t\tSearch and/or Change for Items in the Warehouse MS\n\t***********************************************************************\n\n");
 		
 		static int output[2];
-		printf("What is the Name?");
+		printf("What is the Item ID? ");
 		char key[100];
 		char input[100];
 		scanf("%s",&key);
@@ -417,70 +412,63 @@ int* searchItems(void){
 					exit(1);
 				}
 				
-				char mystring[100];
+				char myString[100];
 				int line = 0 ;
 				int find = 0;
 				int fieldNumber = 0 ;
-				while(fgets(mystring, sizeof(mystring),invfile) != NULL){
+				while(fgets(myString, sizeof(myString),invfile) != NULL){
 					line++;  fieldNumber++;
-					if(strcmp(mystring, key) == 0 && fieldNumber ==1) {
-						printf("\n found %s at line %d\n", input, line);
+					if(strcmp(myString, key) == 0 && fieldNumber ==1) {
+						printf("\nItem ID %s was found at line %d\n", input, line);
 						find = 1;
 						output[0] = find;
 						output[1] = line;
 						break;
 					}
-					if(fieldNumber == 8)
+					
+					if(fieldNumber == 10)
 					{
 					fieldNumber=0;
 					}
 				}
 				
-				fclose(invfile);
-				if(find ==0 ){
-					printf("\ndoes not exist 1\n");
-					return output;
-				}
-				
+			fclose(invfile);
+			if(find ==0 ){
+				printf("\ndoes not exist 1\n");
+				return output;
+			}
+			
 			invfile = fopen("inventory.txt","r");
 			if (invfile == NULL)
 			{
-				printf("\n ERROR \n");
-				exit(1);
-				
+				printf("An error has happened!!!");
+			printf("Please reset everything and try again!!!");
+				exit(1);	
 			}
 			
+			// print the information
 			int pline = 0 ;
-			while(fgets(mystring, sizeof(mystring),invfile) != NULL){
+			while(fgets(myString, sizeof(myString),invfile) != NULL){
 				pline++;
-				if (pline == (line+1)){
-					printf("Stored: %s", mystring);
-				}
-				else if (pline == (line+2)){
-					printf("Picked: %s", mystring);
-					
-				}
-				else if (pline == (line+3)){
-					printf("ID: %s", mystring);
-					
-				}
-				else if (pline == (line+4)){
-					printf("Creator: %s", mystring);
-					
-				}
-				else if (pline == (line+5)){
-					printf("QTY: %s", mystring);
-					
-				}
-				else if (pline == (line+6)){
-					printf("Location: %s", mystring);
-					
-				}
-				else if (pline == (line+7)){
-					printf("Price: %s", mystring);
-					break;
-				};
-			}
+				if(pline == (line+1)){
+				printf("\tItem Type: %s",myString);
+			}else if(pline == (line+2)){
+				printf("\tItem Name: %s",myString);
+			}else if(pline == (line+3)){
+				printf("\tStored Time (MM/DD/YY_HH:MM): %s",myString);
+			}else if(pline == (line+4)){
+				printf("\tPickout Time (MM/DD/YY_HH:MM): %s",myString);
+			}else if(pline == (line+5)){
+				printf("\tProvider Name: %s",myString);
+			}else if(pline == (line+6)){
+				printf("\tItem Quantity: %s",myString);
+			}else if(pline == (line+7)){
+				printf("\tItem Place: %s",myString);
+			}else if(pline == (line+8)){
+				printf("\tItem Price: %s",myString);
+				break;
+			};
+		};
 			
 			fclose(invfile);
 			return output;
@@ -489,84 +477,108 @@ int* searchItems(void){
 
 // Case 8 (Alex Vita) 
 void editItems (void){
-	int* place=search();
+	int* place=searchItems();
 	int find = place[0];
 	int line = place [1];
 	if(find == 0){
-		printf("\n Does not exist\n");
-	}
-	else
-	{
-		char name[20], type[20];
-		printf("Enter the name:");
-		scanf("%s", &name);
-		printf("Enter the type:");
-		scanf("%s", &type);
+		printf("\nThis Item does not exist in the WMS Inventory!\n");
+	}else{
 		
-			FILE *invfile;
-			invfile = fopen("inventory.txt","r");
+		// Get new values
+		char Type[100];
+		char ID[100];
+		char Name[100];
+		char store[100];
+		char pick[100];
+		char provider [100];
+		char quantity [100];
+		char place [100];
+		char price [100];
+		
+		printf("\n\tPlease enter your new Item Type for this Item ID: ");
+		scanf("%s",&Type);
+		printf("\tPlease enter your new Item Name for this Item ID: ");
+		scanf("%s",&Name);
+		printf("\tPlease enter your new Item Stored Time (MM/DD/YY_HH:MM) for this Item ID: ");
+		scanf("%s",&store);
+		printf("\tPlease enter your new Item Pickout Time (MM/DD/YY_HH:MM) for this Item ID: ");
+		scanf("%s",&pick);
+		printf("\tPlease enter your new Item Provider Name for this Item ID: ");
+		scanf("%s",&provider);
+		printf("\tPlease enter your new Item Quantity for this Item ID: ");
+		scanf("%s",&quantity);
+		printf("\tPlease enter your new Item Place (Shelf_#) for this Item ID: ");
+		scanf("%s",&place);
+		printf("\tPlease enter your new Item Price for this Item ID: ");
+		scanf("%s",&price);
+
+
+		FILE *invfile=fopen("inventory.txt","r");
+		FILE *tempfile = fopen("tempinventory.txt","w");
+		if (invfile == NULL || tempfile == NULL)
+		{
+		printf("An error has happened!");
+		printf("Please reset everything and try again!");
+		exit(1);   
+		}
 			
-			FILE *tempfile;
-			tempfile = fopen("tempinventory.txt","w");
+		char myString[100];
+		int pline = 0;
 			
-				if (invfile == NULL || tempfile == NULL)
-				{
-					printf("invalid file");
-					exit(1);
-				}
-				
-				char mystring[100];
-				int pline = 0;
-				
-				while (fgets(mystring, sizeof(mystring),invfile) != NULL){
-				pline++;
-				if(pline != (line+1) && pline != (line+2))
-				{
-					fprintf(tempfile,"%s",mystring);
-				}
-				else if(pline == (line+1))
-				{
-					fprintf(tempfile,"%s\n",name);	
-				}
-				else if(pline == (line+2))
-				{
-					fprintf(tempfile,"%s\n",type);
-				}
-				}
-				
-				fclose(invfile);
-				fclose(tempfile);
-				
-				remove("inventory.txt");
-				rename("tempinventory.txt","inventory.txt");
-				
-				puts("\n\tItem has been edited successfully!\n");
-				printf("\tWould you like to adjust another item(y/n): ");
-				char quit;
-				getchar();
-				scanf("%c",&quit);
-				if(quit=='y'){
-					editItems();
-				}
+		while (fgets(myString, sizeof(myString),invfile) != NULL){
+		pline++;
+		if(pline != (line+1) && pline != (line+2) && pline != (line+3)&& pline != (line+4)&& pline != (line+5)&& pline != (line+6)&& pline != (line+7)&& pline != (line+8)){
+			fprintf(tempfile,"%s",myString);
+		}else if(pline == (line+1)){
+			fprintf(tempfile,"%s\n",Type);
+		}else if(pline == (line+2)){
+			fprintf(tempfile,"%s\n",Name);
+		}else if(pline == (line+3)){
+			fprintf(tempfile,"%s\n",store);
+		}else if(pline == (line+4)){
+			fprintf(tempfile,"%s\n",pick);
+		}else if(pline == (line+5)){
+			fprintf(tempfile,"%s\n",provider);
+		}else if(pline == (line+6)){
+			fprintf(tempfile,"%s\n",quantity);
+		}else if(pline == (line+7)){
+			fprintf(tempfile,"%s\n",place);
+		}else if(pline == (line+8)){
+			fprintf(tempfile,"%s\n",price);
+		}
 	}
-}
+			
+		fclose(invfile);
+		fclose(tempfile);
+			
+		remove("inventory.txt");
+		rename("tempinventory.txt","inventory.txt");
+		
+		puts("\n\tItem has been edited successfully!\n");
+		printf("\tWould you like to adjust another item? (y/n): ");
+		char quit;
+		getchar();
+		scanf("%c",&quit);
+		if(quit=='y'){
+			editItems();
+		}
+	}
+};
 
 // Case 9 (Alex Vita)
 void deleteItems(void){
-		
-		int* place=search();
+		int* place=searchItems();
 		
 		int find=place[0];
 		int line=place[1];
 		if(find == 0){
-			printf("does not exist");
+			printf("\tThis Item ID does not exist!");
 		}else{
-				
 				FILE *invfile= fopen("inventory.txt","r");
-				FILE *tempfile= fopen("temp.txt","w");
+				FILE *tempfile= fopen("tempinventory.txt","w");
 				if(invfile == NULL || tempfile == NULL )
 				{
-				  printf("An error is happend!!!");
+				  printf("An error has happened!!!");
 				  printf("Please reset everything and try again!!!");
 				  exit(1);             
 				}
@@ -578,21 +590,22 @@ void deleteItems(void){
 					pline++;
 					if(pline != line && pline != (line+1) && pline != (line+2) && pline != (line+3)
 						&& pline != (line+4) && pline != (line+5)&& pline != (line+6) && pline != (line+7)
-					    && pline != (line+8)){
-						fprintf(tempfile,"%s",myString);
+					    && pline != (line+8) && pline != (line+9)){
+					fprintf(tempfile,"%s",myString);
 						//printf("\t%s has been deleted\n",myString);
 					}
 				}
+				
 				fclose(invfile);
 				fclose(tempfile);
 				
 				// remove the original file and rename the temorary file
 				remove("inventory.txt");
-				rename("temp.txt","inventory.txt");
+				rename("tempinventory.txt","inventory.txt");
 				
-				// doauble check with the user
-				puts("\tThe request was successful");
-				printf("\tWould you like to remove another item(y/n): ");
+				// double check with the user
+				puts("\n\tThe Item was deleted successfully from the WMS inventory!\n");
+				printf("\tWould you like to remove another item? (y/n): ");
 				char quit;
 				getchar();
 				scanf("%c",&quit);
@@ -605,7 +618,7 @@ void deleteItems(void){
 // Case 10 (Alex Vita)
 void viewItems(void){
 		system("@cls||clear");
-		
+		puts("\n\n\t*****************************************\n\t\tView WMS Item Inventory\n\t*****************************************\n\n");
 		FILE *invfile;
 		invfile = fopen("inventory.txt","r"); 
 		if(invfile == NULL)
@@ -615,53 +628,56 @@ void viewItems(void){
 		  exit(1);             
 		}
 		
-		struct entity {
-		char type[100];
+		struct entity{
+		char Type[100];
 		char ID[100];
+		char Name[100];
 		char store[100];
 		char pick[100];
-		char creator [100];
-		char qty [100];
-		char place [100];
-		char price [100];
+		char provider[100];
+		char quantity[100];
+		char place[100];
+		char price[100];
 	};
 		struct entity new;
 		//TABLE TITLES
-		printf("\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 Inventory \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n");
-		printf("\t=======================================================================\n");
-		printf("\tType\t\tStored\t\tPicked\t\t\tID\tCreator\t\tQTY\tLocation\tPrice\t \n");
-		printf("\t=======================================================================\n");
-		char myString[100];
+		printf("\t\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 WMS Item Inventory \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n");
+		printf("\t=======================================================================================================================\n");
+		printf("\tID\tType\tName\t\tPicked\t\tStored\t\tProvider\tQuantity\tPlace\t\tPrice\n");
+		printf("\t=======================================================================================================================\n");
+		char myString[100000];
 		int pline=0;
 		while(fgets(myString, sizeof(myString),invfile) != NULL){
 			pline++;
 			if(pline == 1){
 				myString[strcspn(myString, "\n")] = 0;
-				strcpy(new.type,myString);
+				strcpy(new.ID,myString);
 			}else if(pline == 2){
 				myString[strcspn(myString, "\n")] = 0;
-				strcpy(new.store,myString);
+				strcpy(new.Type,myString);
 			}else if(pline == 3){
 				myString[strcspn(myString, "\n")] = 0;
-				strcpy(new.pick,myString);
+				strcpy(new.Name,myString);
 			}else if(pline == 4){
 				myString[strcspn(myString, "\n")] = 0;
-				strcpy(new.ID,myString);
+				strcpy(new.store,myString);
 			}else if(pline == 5){
 				myString[strcspn(myString, "\n")] = 0;
-				strcpy(new.creator,myString);
+				strcpy(new.pick,myString);
 			}else if(pline == 6){
 				myString[strcspn(myString, "\n")] = 0;
-				strcpy(new.qty,myString);
+				strcpy(new.provider,myString);
 			}else if(pline == 7){
 				myString[strcspn(myString, "\n")] = 0;
-				strcpy(new.place,myString);
+				strcpy(new.quantity,myString);
 			}else if(pline == 8){
 				myString[strcspn(myString, "\n")] = 0;
-				strcpy(new.price,myString);
+				strcpy(new.place,myString);
 			}else if(pline == 9){
-				printf("\t%-10s\t\t%-5s\t\t%-5s\t%-5s\t%-5s\t\t%-5s\t%-5s\t%-5s\n",
-				&new.type,&new.store,&new.pick,&new.ID,&new.creator,&new.qty,&new.place,&new.price);
+				myString[strcspn(myString, "\n")] = 0;
+				strcpy(new.price,myString);
+			}else if(pline == 10){
+				printf("\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t%-5s\t\t%-5s\t\t%-5s\t\t%-5s\n",&new.ID,&new.Type,&new.Name,&new.pick,&new.store,&new.provider,&new.quantity,&new.place,&new.price);
 				pline=0;
 			}
 		}

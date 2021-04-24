@@ -37,7 +37,7 @@ int* searchWMS(void){
 		system("@cls||clear");
 		puts("\n\n\t**********************************************\n\t\tSearch for Items in the WMS\n\t**********************************************\n\n");
 		// return array
-		static int output[9];
+		static int output[10];
 		// Get the place
 		printf("\tWhat is the Item ID? ");
 		char ID[100];
@@ -72,7 +72,7 @@ int* searchWMS(void){
 				break;
 			}
 			//When we starting reading a new entity
-			if(fieldNumber == 8){
+			if(fieldNumber == 10){
 				fieldNumber=0;
 			}
 		}
@@ -101,12 +101,16 @@ int* searchWMS(void){
 			}else if(pline == (line+2)){
 				printf("\tItem Name: %s",myString);
 			}else if(pline == (line+3)){
-				printf("\tProvider Name: %s",myString);
+				printf("\tStored Time (MM/DD/YY_HH:MM): %s",myString);
 			}else if(pline == (line+4)){
-				printf("\tItem Quantity: %s",myString);
+				printf("\tPickout Time (MM/DD/YY_HH:MM): %s",myString);
 			}else if(pline == (line+5)){
-				printf("\tItem Place: %s",myString);
+				printf("\tProvider Name: %s",myString);
 			}else if(pline == (line+6)){
+				printf("\tItem Quantity: %s",myString);
+			}else if(pline == (line+7)){
+				printf("\tItem Place: %s",myString);
+			}else if(pline == (line+8)){
 				printf("\tItem Price: %s",myString);
 				break;
 			};
