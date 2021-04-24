@@ -675,7 +675,7 @@ void viewBorrowing(void){
 		puts("\n\n\t***********************\n\t\tView User's Borrowing Request\n\t***********************\n\n");
 		// Open the text file
 		FILE *myfile;
-		myfile = fopen("List.txt","r"); 
+		myfile = fopen("Request.txt","r"); 
 		if(myfile == NULL)
 		{
 		  printf("An error has happened!\n");
@@ -747,7 +747,7 @@ void viewBorrowing(void){
 }
 
 
-// Case 12 (Kamryn Hammond)
+// Case 12 (Sophie Ross)
 void acceptDeny(void){
 		system("@cls||clear");
 		puts("\n\n\t***********************\n\t\tDeny or Accept Guest User's Requests\n\t***********************\n\n");
@@ -847,7 +847,7 @@ void admin(void){
 	getchar();
 	scanf("%c",&quit);
 	if(quit=='y'||quit=='Y'){
-		adminMenu();
+		admin();
 	}else if (quit=='n'||quit=='N'){
 		printf("\nThank you for using the Warehouse Management System! Have a good day!\n");
 		exit(1);
