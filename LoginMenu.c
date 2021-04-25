@@ -148,7 +148,7 @@ int* adminLogin(void){
 				break;
 			};
 		}
-		
+		fclose(myfile); // nOW ITS THE RIGHT SPOT
 		
 		printf("\tWould you like to enter the Admin Menu? (y/n): ");
 		char quit;
@@ -161,7 +161,7 @@ int* adminLogin(void){
 		}
 		
 		//close the file
-		fclose(myfile);
+		//fclose(myfile);  THIS WAS IN THE WRONG SPOT
 		return output;
 	};
 
