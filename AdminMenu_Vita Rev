@@ -1,4 +1,5 @@
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -148,7 +149,7 @@ int* search(void){
 				printf("\tPassword: %s",myString);
 				break;
 			};
-		}
+		};
 		//close the file
 		fclose(myfile);
 		return output;
@@ -262,7 +263,7 @@ void delete(void){
 		// We want to make sure the desired URL, Username, and Password exist
 		int* place=search();
 		int find=place[0];
-		int line=place[0];
+		int line=place[1];
 		if(find == 0){
 			printf("\tYour desired encryption key does not exists!");
 		}else{
