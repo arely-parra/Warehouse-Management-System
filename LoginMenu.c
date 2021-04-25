@@ -33,7 +33,7 @@
 	}
 
 
-// Case 1 (Sophie Ross)
+// Case 1 (Arely J Parra López)
 void registration(void){
 		system("@cls||clear");
 		puts("\n\n\t**********************************************\n\t\tRegistration for New Users\n\t**********************************************\n\n");
