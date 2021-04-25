@@ -274,7 +274,7 @@ void delete(void){
 		}else{
 				// open the textfile
 				FILE *originalfile= fopen("LogIn.txt","r");
-				FILE *tempfile= fopen("temp.txt","w");
+				FILE *tempfile= fopen("tempLogin.txt","w");
 				if(originalfile == NULL || tempfile == NULL )
 				{
 				  printf("An error has happened!");
