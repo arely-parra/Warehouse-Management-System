@@ -307,6 +307,8 @@ void delete(void){
 
 // Case 6 (Alex Vita) 
 void addItems (void){
+	int* searchItems();
+	
 	system("@cls||clear");
 	puts("\n\n\t******************************************\n\t\tAdd Items to WMS Inventory\n\t******************************************\n\n");
 	struct entity {
@@ -320,6 +322,7 @@ void addItems (void){
 		char quantity [100];
 		char place [100];
 		char price [100];
+		
 	};
 	struct entity new;
 	
@@ -327,9 +330,54 @@ void addItems (void){
 	printf("Please enter the following information\n");
 	
 	//Enter Item ID
-	printf("Enter Item ID: ");
+	//printf("Enter Item ID: ");
+	//scanf("%s",&new.ID); 
+	
+
+
+		static int output[2];
+		printf("Enter Item ID: ");
+		
+		char key[100];
+		char input[100];
+		scanf("%s",&key);
+		strcpy(input,key);
+		strcat(key, "\n");
+		FILE *invfile;
+			invfile = fopen("inventory.txt","r");
+				
+				char myString[100];
+				int line = 0 ;
+				int find = 0;
+				int fieldNumber = 0 ;
+				
+				
+				
+				while(fgets(myString, sizeof(myString),invfile) != NULL){
+					line++;  fieldNumber++;
+					if(strcmp(myString, key) == 0 && fieldNumber ==1) {
+						printf("\nItem ID %s already exists, please use a different ID!\n", input);
+						find = 1;
+						output[0] = find;
+						output[1] = line;
+						break;
+					}
+					
+					if(fieldNumber == 10)
+					{
+					fieldNumber=0;
+					
+					}
+				}
+				
+				
+			fclose(invfile);
+			if(find !=1 ){
+				
+	//Enter Item ID
+	printf("Please Enter ID for Verification: ");
 	scanf("%s",&new.ID); 
-			
+	
 	//Enter Item type 
 	printf("Enter Item Type: ");
 	scanf("%s",&new.Type);
@@ -385,6 +433,14 @@ void addItems (void){
 			addItems();
 		}
 }
+
+else if (find ==1){
+}
+}
+
+
+
+
 
 // Case 7 (Alex Vita)
 int* searchItems(void){
