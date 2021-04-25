@@ -278,7 +278,7 @@ void requestItems(void){
 		scanf("%s",&new.Place);
 		printf("\tItem Price: ");
 		scanf("%s",&new.Price);
-		printf("\tBorrowing Time: ");
+		printf("\tBorrowing Time ([Forever] indicates [To Purchase]): ");
 		scanf("%s",&new.Length);
 		
 		// print on a textfile
