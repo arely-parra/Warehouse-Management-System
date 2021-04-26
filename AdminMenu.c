@@ -160,7 +160,7 @@ int* search(void){
 		return output;
 	};
 	
-// Case 3 (Kamryn Hammond) (ALEX) ------
+// Case 3 (Kamryn Hammond)
 void edit(void){
 		int* place=search();
 		int find=place[0];
@@ -263,7 +263,7 @@ void add(void){
 		}
 	}
 
-// Case 5 (Kamryn Hammond) (ALEX) ------
+// Case 5 (Kamryn Hammond)
 void delete(void){
 		// We want to make sure the desired URL, Username, and Password exist
 		int* place=search();
@@ -442,10 +442,6 @@ void addItems (void){
 else if (find ==1){
 }
 }
-
-
-
-
 
 // Case 7 (Alex Vita)
 int* searchItems(void){
@@ -808,7 +804,6 @@ void viewBorrowing(void){
 		//close the file
 		fclose(myfile);
 }
-
 
 // Case 12 (Sophie Ross)
 void acceptDeny(void){
