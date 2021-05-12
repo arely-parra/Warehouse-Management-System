@@ -1,9 +1,3 @@
-//* Project 4: Warehouse Management System
-//* Group Name: Can You C My Screen?
-//* Group Members: Arely J. Parra López, Jarred Crystal, Alexander Vita, Kamyrn Hammond, and Sophie Ross
-//* Course: CSCI 1110-01 | Introduction to C Programming
-//* Professor: Dr. Reza Sadeghi
-//* Date: Monday, April 26th, 2021
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -160,7 +154,7 @@ int* search(void){
 		return output;
 	};
 	
-// Case 3 (Kamryn Hammond)
+// Case 3 (Kamryn Hammond) (ALEX) ------
 void edit(void){
 		int* place=search();
 		int find=place[0];
@@ -263,7 +257,7 @@ void add(void){
 		}
 	}
 
-// Case 5 (Kamryn Hammond)
+// Case 5 (Kamryn Hammond) (ALEX) ------
 void delete(void){
 		// We want to make sure the desired URL, Username, and Password exist
 		int* place=search();
@@ -442,6 +436,10 @@ void addItems (void){
 else if (find ==1){
 }
 }
+
+
+
+
 
 // Case 7 (Alex Vita)
 int* searchItems(void){
@@ -804,6 +802,7 @@ void viewBorrowing(void){
 		//close the file
 		fclose(myfile);
 }
+
 
 // Case 12 (Sophie Ross)
 void acceptDeny(void){
